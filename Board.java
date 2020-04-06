@@ -4,7 +4,7 @@ private Tile[][] board;
 private int dimensionr;
 private int dimensionc;
 private MainMarket market;
-//constructor 
+//constructor give it a nxm size to print those in lanes form
     public Board(int dimensionr,int dimensionc ){
         this.dimensionr= dimensionr;
         this.dimensionc= dimensionc;
@@ -16,7 +16,11 @@ private MainMarket market;
         market= new MainMarket();
         
     }
+    //constructor which will set up board base on how many lane you would like
+    public Board(int lane){
+        this((lane*2+lane-1),(lane*2+lane-1));
 
+    }
     
 
 public int getrow(){
@@ -27,34 +31,13 @@ public int getcol(){
     return this.dimensionc;
 }
 
+//initialize the board
 public void intialize_board(){
     set_regularlane(0);
-    // for (int i = 0; i < dimensionr; i++) {
-    //     for (int k = 0; k < dimensionc; k++) {
-        //     val = rand.nextInt(10);
-        //     // System.out.println(val);
-        //     if(i==0 && k%2!==0){
-        //         board[i]
-        //     }
-        //     if(val == 0 || val==1){
-        //         board[i][k]= new Tile(i, k,'B');
-        //     }
-        //     if(val== 2||val==3 ){
-        //         board[i][k]= new Tile(i,k,'C');
-                
-        //     }
-        //     if(val== 4||val==6 ){
-        //         board[i][k]= new Tile(i,k,'K');
-                
-        //     }
-        //     if (val > 6){
-        //         board[i][k]= new Tile(i,k,'P');
-        //     }
-        // }
     
-    
-    // }
 }
+
+//add the lane to to the board.
 
 public void set_regularlane(int curr_row){
     int i;
@@ -99,6 +82,7 @@ public void set_regularlane(int curr_row){
     
 }
 
+//add the nonelane to board
 public void setnolane(int curr_row){
     
     for (int k= 0; k< dimensionc;k++){
@@ -137,6 +121,13 @@ public void setPiece(int r, int c,char piece){
     Tile current= board[r][c];
     current.setDisplaytile(piece);
 }
+//move each hero/monser  to a position r c. 
+public void move(int r,int c, String piece){
+     System.out.println(r+" "+c);
+     Tile current = board[r][c];
+    current.set_character_piece(piece);
+   
+}
 public void SetPlayerPiece(char piece){
     //  System.out.println(this.dimensionr/2);
      int r= this.dimensionr/2;
@@ -144,7 +135,7 @@ public void SetPlayerPiece(char piece){
     int c= this.dimensionc/2;
     setPiece(r, c,piece);
 }
-//print the board at current state
+// print the board at current state
 public void printBoard(){
     String String1;
     String String2;
@@ -208,6 +199,7 @@ public void printBoard(){
 
 }
 
+//return the market on the playing field
 public MainMarket getMarket(){
     return this.market;
 }
@@ -217,7 +209,10 @@ public MainMarket getMarket(){
     
 
     public static void main(String[] args){
-        Board b1= new Board(8,8);
+        Board b1= new Board(3);
+        b1.moveHero(0, 7, "H1");
+        b1.moveHero(3, 7, "H2");
+        b1.moveHero(6, 7, "H3");
         b1.printBoard();
        
     }

@@ -2,6 +2,7 @@ import java.util.Random;
 import java.util.*;
 public class Play{
     private static Player currentplayer;
+    private static  ArrayList<Character> heroes;
     private static Hero_list possiblehero= new Hero_list();
     public static Scanner scannername = new Scanner (System.in);
     private static int num_hero;
@@ -1046,6 +1047,8 @@ public class Play{
 
     }
 
+
+//Check if the input to a value is an interger when asked for an integer input!
     public static int isInt(){
         
         while (!scannername.hasNextInt()) {
@@ -1058,9 +1061,27 @@ public class Play{
           return number;
     
     }
-    
+
+    public static void set_heropostion(Character current_hero){
+
+        int row= current_hero.row;
+        int col=current_hero.col;
+        System.out.print(row);
+        System.out.print(col);
+        String piece=current_hero.pieceName;
+        playingboard.move(row,col,piece);
+
+    }
+
+    public static void initalize_heropostion(){
+        System.out.println(heroes.size());
+        for(int i = 0; i <heroes.size(); i++){
+          set_heropostion(heroes.get(i));
+    }
+}
     public static void introduction_setup(){
-        System.out.println("The land of Java was taken over by the evil beasts.");
+        num_hero=3;
+        System.out.println("Welcome to the Quest of Legend.");
         System.out.println("In the middle of chaos, you were choosen to save the world.");
         System.out.println("You will lead the team of heroes to bring peace for the kingdom");
         System.out.println("Tell me us your name, before your adventure begins");
@@ -1071,20 +1092,7 @@ public class Play{
         currentplayer= new Player(name,'O');
         System.out.println();
         System.out.println(name + " ,we have choosen some of the brightest strongest heroes in the whole kingdom to aid you!");
-        System.out.println("Its important to know having too much teammates will lead to more monsters being alerted and attack your team!");
-        System.out.println("You can choose to lead with 1,2,3 hero(s)");
-        System.out.println( "Choose the number of heroes you want on your team(1-3): ");
-
-        scannername.nextLine();
-        num_hero =isInt();
-        
-        
-        while (valid_input(num_hero)== false){
-            System.out.print("Incorrect input! Please choose a number from 1-3: ");
-            scannername.nextLine();
-            num_hero= isInt();
-        }
-        System.out.println ("Great! You will now get to choose "+ num_hero +" companions!");
+        System.out.println("Since you have 3 nexus to defend from the monster, please choose your 3 heros!");
         System.out.println("You might want to decide who to pick with you base on their class!");
         System.out.println("Warriors are favored on the strength and the agility.");
         System.out.println("Sorcerers are favored on the dexterity and the agility.");
@@ -1097,19 +1105,20 @@ public class Play{
         System.out.println();
         System.out.println("Here is the current state of all your memebers of the team!");
         currentplayer.printlist();
+        currentplayer.setHero_piece(8);
+        
         System.out.println();
         System.out.println("Your adventure will begin now!");
         System.out.println("Move using W(up),S(down),A(left),D(right)");
         System.out.println("You cannot move to terrain(X), but can visit market(M) to buy and sell stuff. All others are the wild that will have a chance to spawn monsters! Beware!");
         System.out.println("Check your hero stats using T");
         System.out.println("Check inventory to equip and use items using I");
-        System.out.println("To be relocated to a new map use R");
+        System.out.println("To teleport to a new map use M");
         System.out.println("Close the game using Q");
         scannername.nextLine();
         playingboard= new Board(8,8);
-        currentplayer.setCol(8/2);
-        currentplayer.setRow(8/2);
-        playingboard.SetPlayerPiece(currentplayer.return_playerpiece());
+        heroes= currentplayer.returnHerolist();
+        initalize_heropostion();
         playingboard.printBoard();
         actual_game();
         

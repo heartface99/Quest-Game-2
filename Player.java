@@ -1,5 +1,6 @@
 
 import java.util.*;  
+//class for Player which have their name, their piece representation, postion and the list of hero that they hold.
 public class Player{
     private String name;
     private char player_representation;
@@ -7,13 +8,14 @@ public class Player{
     private int row;
     private int col;
  
-    
+    //constructor
     public Player(String name,char piece){
         this.name= name;
         this.player_representation=piece;
         this.player_heroes= new ArrayList<Character>();
     
     }
+    //getters and setters
     public int getRow(){
         return this.row;
     }
@@ -39,11 +41,14 @@ public class Player{
     public String return_playername(){
         return this.name;
     }
+    public ArrayList<Character> returnHerolist(){
+        return player_heroes;
+    }
 
     public void add_hero(Character char1){
         this.player_heroes.add(char1);
     }
-
+    //return the max hero level
     public int returnmaxlevel(){
         int maxlevel=0;
         for(int i = 0; i < player_heroes.size(); i++){
@@ -57,13 +62,12 @@ public class Player{
     return maxlevel;
 }
 
-    public ArrayList<Character> returnHerolist(){
-        return player_heroes;
-    }
+
+    
 
   
    
-
+    //padding for the printing of the hero to look neater
     public String pad (String input,int num_extended){
         int counter;
         while(input.length()<num_extended){
@@ -73,7 +77,7 @@ public class Player{
             }
             return input;
         }
-        
+    //print the current status of all the hero the player have
     public void printlist(){
         
         Character current;
@@ -112,6 +116,9 @@ public class Player{
         System.out.println("+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+");
 
 }
+
+//another verison of print which only has the hero and money which is helpful just when player enters the market so they will know
+//how much money they had. 
 public void printheros(){
         
     Character current;
@@ -134,7 +141,22 @@ public void printheros(){
     System.out.println("+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+");
 
 }
+//set the hero piece of each hero, in order in which they have been added. Hence H1,H2,H3.
+//also sets their col and row so they spawn at nexus 
+public void setHero_piece(int c){
+    int counter=0;
+    for(int i = 0; i < player_heroes.size(); i++){
+        Character current= player_heroes.get(i);
+        current.setpiecename("H"+ (i+1));
+        current.setrow(counter);
+        current.setcol(c-1);
+        
+        counter+=3;
 
+    
+}
 
 }
+}
+
 
