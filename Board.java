@@ -95,6 +95,12 @@ public void setnolane(int curr_row){
 
 }
 
+
+public char check_tile(int r,int c){
+    Tile curr= board[r][c];
+    return curr.getDisplaytile();
+}
+//checking if you are moving to an available space
 public String movingtoempyspace(int row,int col,char piece){
    
     if(row>=this.dimensionr || col>=this.dimensionc|| row<0 || col<0){
@@ -210,9 +216,9 @@ public MainMarket getMarket(){
 
     public static void main(String[] args){
         Board b1= new Board(3);
-        b1.moveHero(0, 7, "H1");
-        b1.moveHero(3, 7, "H2");
-        b1.moveHero(6, 7, "H3");
+        b1.move(0, 7, "H1");
+        b1.move(3, 7, "H2");
+        b1.move(6, 7, "H3");
         b1.printBoard();
        
     }
