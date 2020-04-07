@@ -70,15 +70,32 @@ public class PlayQuestOfLegends extends Play{
     //after user choose what to do next, you elaborate on what their choices can be
     public static void chosenMove(Character_monster curr, int i){
         //player choose to make a move. 
-        if(i== 1){
-            boolean loop= true;
-            while(loop){
-            System.out.println("Make a move(w,s,a,d): ");
-            String x= scannername.nextLine();
-            String instruction = valid_move(x);
-            loop = makeMove(x,curr);
-            }
-            playingboard.printBoard();
+        boolean loop= true;
+        switch (i) {
+            case 1:
+                while(loop){
+                System.out.println("Make a move(w,s,a,d): ");
+                String x= scannername.nextLine();
+                String instruction = valid_move(x);
+                loop = makeMove(x,curr);
+                }
+                playingboard.printBoard();
+            case 2:
+                System.out.println("not implemented yet");
+            case 3:
+                System.out.println("not implemented yet");
+            case 4:
+                System.out.println("not implemented yet");
+            case 5:
+                System.out.println("not implemented yet");
+            case 6:
+                System.out.println("not implemented yet");
+            case 7:
+                System.out.println("not implemented yet");
+            case 8:
+                System.out.println("not implemented yet");
+            case 9:
+                System.out.println("not implemented yet");
         }
     }
 
