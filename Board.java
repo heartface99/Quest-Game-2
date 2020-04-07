@@ -11,7 +11,6 @@ private MainMarket market;
 
         //make a board of dimension by dimension size
         board= new Tile[dimensionr][dimensionc];
-
         intialize_board();
         market= new MainMarket();
         
@@ -44,6 +43,7 @@ public void set_regularlane(int curr_row){
     int k;
     int val;
     Random rand = new Random(); 
+   
     for( i= curr_row; i< curr_row+2; i++){
         for ( k= 0; k< dimensionc;k++){
             if(k==0||k== dimensionc-1){
@@ -101,46 +101,45 @@ public char check_tile(int r,int c){
     return curr.getDisplaytile();
 }
 //checking if you are moving to an available space
-public String movingtoempyspace(int row,int col,char piece){
+public String movingtoempyspace(int row,int col,Character_monster curr){
    
     if(row>=this.dimensionr || col>=this.dimensionc|| row<0 || col<0){
+        
+    
         return "X";
     } 
     
     Tile current= board[row][col];
-    if(current.getDisplaytile()=='X'){
-        // System.out.println(current.getDisplaytile()=='X');
+    System.out.println(current.get_characterpiece());
+    if(current.get_characterpiece().equals("  ")==false){
+        
       
         return "X";
     }
-    if(current.getDisplaytile()=='M'){
-        
-        return "M";
-        
+    else{
+    System.out.println("here3");
+    Tile previous = board[curr.row][curr.col];
+    previous.reset_characterpiece();
+    move(row, col, curr);
+    return "OK";
     }
    
-    setPiece(row, col, piece);
-    return "OK";
 }
-public void setPiece(int r, int c,char piece){
-    
-    Tile current= board[r][c];
-    current.setDisplaytile(piece);
-}
+
 //move each hero/monser  to a position r c. 
-public void move(int r,int c, String piece){
+public void move(int r,int c, Character_monster curr){
      System.out.println(r+" "+c);
      Tile current = board[r][c];
-    current.set_character_piece(piece);
+    current.set_character_piece(curr);
    
 }
-public void SetPlayerPiece(char piece){
-    //  System.out.println(this.dimensionr/2);
-     int r= this.dimensionr/2;
+// public void SetPlayerPiece(char piece){
+//     //  System.out.println(this.dimensionr/2);
+//      int r= this.dimensionr/2;
    
-    int c= this.dimensionc/2;
-    setPiece(r, c,piece);
-}
+//     int c= this.dimensionc/2;
+//     setPiece(r, c,piece);
+// }
 // print the board at current state
 public void printBoard(){
     String String1;
@@ -200,10 +199,8 @@ public void printBoard(){
      System.out.println();
      
     }
-
-    
-
 }
+
 
 //return the market on the playing field
 public MainMarket getMarket(){
@@ -216,9 +213,6 @@ public MainMarket getMarket(){
 
     public static void main(String[] args){
         Board b1= new Board(3);
-        b1.move(0, 7, "H1");
-        b1.move(3, 7, "H2");
-        b1.move(6, 7, "H3");
         b1.printBoard();
        
     }

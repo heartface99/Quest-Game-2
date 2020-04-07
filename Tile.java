@@ -1,10 +1,12 @@
+import javax.swing.text.DefaultStyledDocument.ElementSpec;
+
 //class of tile that has the property of column, row, what type of tile it is
 // and the piece of hero/monster if its on tile.
 public class Tile{
     private int col;
     private int row;
     private char display_tile;
-    private String characterhere="  ";
+    private Character_monster characterhere=null ;
 
     public Tile(int row, int col,char display_tile){
         this.col = col;
@@ -19,16 +21,22 @@ public class Tile{
         return this.row;
     }
 
-    public void set_character_piece(String character_piece){
+    public void set_character_piece(Character_monster character_piece){
         this.characterhere= character_piece;
     }
 
     public String get_characterpiece(){
-        return this.characterhere;
+        if(this.characterhere!= null){
+        return this.characterhere.getPieceName();
+        }
+        else{
+            
+            return "  ";
+        }
     }
 
     public void reset_characterpiece(){
-        this.characterhere="  ";
+        this.characterhere= null;
     }
   
 

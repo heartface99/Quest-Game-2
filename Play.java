@@ -891,136 +891,138 @@ public class Play{
     
 
 
-    public static void whattodonext(String instruction){
-        char playpiece= currentplayer.return_playerpiece();
-        int currentrow=currentplayer.getRow();
-        int currentcol=currentplayer.getCol();
-        int nextrow;
-        int nextcol;
-        if(instruction.equals("a")){
-            nextrow=currentrow;
-            nextcol= currentcol-1;
+    // public static void whattodonext(String instruction){
+    //     char playpiece= currentplayer.return_playerpiece();
+    //     int currentrow=currentplayer.getRow();
+    //     int currentcol=currentplayer.getCol();
+    //     int nextrow;
+    //     int nextcol;
+    //     if(instruction.equals("a")){
+    //         nextrow=currentrow;
+    //         nextcol= currentcol-1;
         
-            if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
-            playingboard.setPiece(currentrow,currentcol,' ');
-            currentplayer.setRow(nextrow);
-            currentplayer.setCol(nextcol);
-            battle();
+    //         if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
+    //         playingboard.setPiece(currentrow,currentcol,' ');
+    //         currentplayer.setRow(nextrow);
+    //         currentplayer.setCol(nextcol);
+    //         battle();
             
             
-            }
-            else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
+    //         }
+    //         else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
                 
-                Marketplace();
+    //             Marketplace();
 
-            }
-            else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X"){
-                actual_game_wronginput();
-            }
-        }
+    //         }
+    //         else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X"){
+    //             actual_game_wronginput();
+    //         }
+    //     }
           
-        if(instruction.equals("w")){
-            nextrow=currentrow-1;
-            nextcol= currentcol;
-            if (playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
-            playingboard.setPiece(currentrow,currentcol,' ');
-            currentplayer.setRow(nextrow);
-            currentplayer.setCol(nextcol);
-            battle();
+    //     if(instruction.equals("w")){
+    //         nextrow=currentrow-1;
+    //         nextcol= currentcol;
+    //         if (playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
+    //         playingboard.setPiece(currentrow,currentcol,' ');
+    //         currentplayer.setRow(nextrow);
+    //         currentplayer.setCol(nextcol);
+    //         battle();
            
-            }
-            else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
-                Marketplace();
+    //         }
+    //         else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
+    //             Marketplace();
 
-            }
-            else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X") {
-                actual_game_wronginput();
-            }
-        }
+    //         }
+    //         else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X") {
+    //             actual_game_wronginput();
+    //         }
+    //     }
             
-        if(instruction.equals("s")){
-            nextrow=currentrow+1;
-            nextcol= currentcol;
-            if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
-            playingboard.setPiece(currentrow,currentcol,' ');
-            currentplayer.setRow(nextrow);
-            currentplayer.setCol(nextcol);
-            battle();
+    //     if(instruction.equals("s")){
+    //         nextrow=currentrow+1;
+    //         nextcol= currentcol;
+    //         if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
+    //         playingboard.setPiece(currentrow,currentcol,' ');
+    //         currentplayer.setRow(nextrow);
+    //         currentplayer.setCol(nextcol);
+    //         battle();
             
-            }
-            else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
+    //         }
+    //         else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
             
-                Marketplace();
+    //             Marketplace();
 
-            }
+    //         }
 
-        else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X"){
-            actual_game_wronginput();
-        }
-    }
+    //     else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X"){
+    //         actual_game_wronginput();
+    //     }
+    // }
        
-        if(instruction.equals("d")){
-            nextrow=currentrow;
-            nextcol= currentcol+1;
-            if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
-            playingboard.setPiece(currentrow,currentcol,' ');
-            currentplayer.setRow(nextrow);
-            currentplayer.setCol(nextcol);
-            battle();
-        }
-        else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
+    //     if(instruction.equals("d")){
+    //         nextrow=currentrow;
+    //         nextcol= currentcol+1;
+    //         if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
+    //         playingboard.setPiece(currentrow,currentcol,' ');
+    //         currentplayer.setRow(nextrow);
+    //         currentplayer.setCol(nextcol);
+    //         battle();
+    //     }
+    //     else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
          
-            Marketplace();
-        }
-        else if (playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X"){
-            actual_game_wronginput();
-        }
+    //         Marketplace();
+    //     }
+    //     else if (playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X"){
+    //         actual_game_wronginput();
+    //     }
 
-    }
-    if(instruction.equals("t")){
-        herostat();
+    // }
+    // if(instruction.equals("t")){
+    //     herostat();
 
-    }
-    if(instruction.equals("i")){
-        inventory();
-    }
+    // }
+    // if(instruction.equals("i")){
+    //     inventory();
+    // }
 
-    if(instruction.equals("r")){
-        playingboard.intialize_board();
-        currentplayer.setCol(8/2);
-        currentplayer.setRow(8/2);
-        playingboard.SetPlayerPiece(currentplayer.return_playerpiece());
+    // if(instruction.equals("r")){
+    //     playingboard.intialize_board();
+    //     currentplayer.setCol(8/2);
+    //     currentplayer.setRow(8/2);
+    //     playingboard.SetPlayerPiece(currentplayer.return_playerpiece());
         
-    }
-    if(instruction.equals("q")){
-        System.out.println("Thank you for playing!");
-        System.exit(0);
-    }
-        playingboard.printBoard();
+    // }
+    // if(instruction.equals("q")){
+    //     System.out.println("Thank you for playing!");
+    //     System.exit(0);
+    // }
+    //     playingboard.printBoard();
         
-        actual_game();
-        // if(instruction.equals("e")){
+    //     actual_game();
+    //     // if(instruction.equals("e")){
 
-        // }
-        // if(instruction.equals("t")){
+    //     // }
+    //     // if(instruction.equals("t")){
     
-        // }
+    //     // }
 
-    }
+    // }
 
-    //check if you type in the instructions that is allowed in game.
-    public static void valid_input3(String x){
+    // //check if you type in the instructions that is allowed in game.
+    public static String valid_move(String x){
         // System.out.println((x.equals("w")==false|| x.equals("a")==false|| x.equals("s")==false ||x.equals("d")==false||x.equals("q")==false||x.equals("t")==false||x.equals("e")==false));
         // System.out.println(true||false);
-        while(x.equals("w")==false&&x.equals("a")==false&& x.equals("s")==false &&x.equals("d")==false&&x.equals("q")==false&&x.equals("t")==false&&x.equals("i")==false&& x.equals("r")==false){
+        while(x.equals("w")==false&&x.equals("a")==false&& x.equals("s")==false &&x.equals("d")==false){
         //  while(x.equals("a")==false||x.equals("w")==false){
             System.out.print("Invalid input! Enter your moves: ");
 
             x= scannername.nextLine();
             x=x.toLowerCase();
         }
-        whattodonext(x);
+        return x;
     }
+    //     whattodonext(x);
+    // }
     
     //check if you enter a right instruction in game.
     public static void actual_game_wronginput(){
@@ -1029,10 +1031,183 @@ public class Play{
         x= scannername.nextLine();
         x=x.toLowerCase();
         // System.out.println(x.equals("a"));
-        valid_input3(x);
+        // valid_input3(x);
     }
+
+    public static boolean make_move(String instruction,Character_monster curr){
+        
+        int currentrow=curr.row;
+        int currentcol=curr.col;
+        int nextrow;
+        int nextcol;
+        if(instruction.equals("a")){
+            nextrow=currentrow-1;
+            nextcol= currentcol;
+        
+            if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
+                curr.row=(nextrow);
+                curr.col=(nextcol);
+               playingboard.printBoard();
+            return false;
+            
+            }
+           
+
+            
+            else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){ 
+                System.out.println("Cannot move there!");
+                return true;
+            }
+            
+        }
+
+        if(instruction.equals("w")){
+            nextrow=currentrow;
+            nextcol= currentcol-1;
+            System.out.println(curr.row+" "+curr.col);
+            System.out.println(nextrow+" "+ nextcol);
+            // System.out.println((playingboard.movingtoempyspace(nextrow,nextcol,curr)));
+            if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
+                curr.row=(nextrow);
+                curr.col=(nextcol);
+                playingboard.printBoard();
+            return false;
+            
+            }
+           
+
+            
+            else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){
+                System.out.println("Cannot move there!");
+                return true;
+            }
+            
+        }
+        if(instruction.equals("s")){
+            nextrow=currentrow;
+            nextcol= currentcol+1;
+        
+            if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
+                curr.row=(nextrow);
+                curr.col=(nextcol);
+                playingboard.printBoard();
+            return false;
+            
+            }
+           
+
+            
+            else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){
+                System.out.println("Cannot move there!");
+                return true;
+            }
+        }
+            
+            if(instruction.equals("d")){
+                nextrow=currentrow+1;
+                nextcol= currentcol;
+            
+                if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
+                    curr.row=(nextrow);
+                    curr.col=(nextcol);
+                    playingboard.printBoard();
+                   
+                return false;
+                
+                }
+               
     
+                
+                else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){
+                    System.out.println("Cannot move there!");
+                    return true;
+                }
+            }
+        return true;
+        }
+
+        
+
+       
+
+
     
+          
+    //     if(instruction.equals("w")){
+    //         nextrow=currentrow-1;
+    //         nextcol= currentcol;
+    //         if (playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
+    //         playingboard.setPiece(currentrow,currentcol,' ');
+    //         currentplayer.setRow(nextrow);
+    //         currentplayer.setCol(nextcol);
+    //         battle();
+           
+    //         }
+    //         else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
+    //             Marketplace();
+
+    //         }
+    //         else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X") {
+    //             actual_game_wronginput();
+    //         }
+    //     }
+            
+    //     if(instruction.equals("s")){
+    //         nextrow=currentrow+1;
+    //         nextcol= currentcol;
+    //         if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
+    //         playingboard.setPiece(currentrow,currentcol,' ');
+    //         currentplayer.setRow(nextrow);
+    //         currentplayer.setCol(nextcol);
+    //         battle();
+            
+    //         }
+    //         else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
+            
+    //             Marketplace();
+
+    //         }
+
+    //     else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X"){
+    //         actual_game_wronginput();
+    //     }
+    // }
+       
+    //     if(instruction.equals("d")){
+    //         nextrow=currentrow;
+    //         nextcol= currentcol+1;
+    //         if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="OK"){
+    //         playingboard.setPiece(currentrow,currentcol,' ');
+    //         currentplayer.setRow(nextrow);
+    //         currentplayer.setCol(nextcol);
+    //         battle();
+    //     }
+    //     else if(playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="M"){
+         
+    //         Marketplace();
+    //     }
+    //     else if (playingboard.movingtoempyspace(nextrow,nextcol,playpiece)=="X"){
+    //         actual_game_wronginput();
+    //     }
+
+        
+    
+    //after user choose what to do next, you elaborate on what their choices can be
+    public static void  move_choosen(Character_monster curr,int i){
+        //player choose to make a move. 
+        if(i== 1){
+            boolean loop= true;
+            while(loop){
+            System.out.println("Make a move(w,s,a,d): ");
+            String x= scannername.nextLine();
+            String instruction =valid_move(x);
+            loop = make_move(x,curr);
+            }
+            playingboard.printBoard();
+
+        }
+
+    }
 
     //ask the user for their instructions on what they would like to do next
     public static void actual_game(){
@@ -1065,7 +1240,10 @@ public class Play{
                 System.out.println("Incorrect input! Please choose a correct number: ");
                 scannername.nextLine();
                 x= isInt();
-                    }
+               
+                    } 
+                scannername.nextLine();
+                move_choosen(curr,x);
                 }
             else{
                 System.out.println("1) move");
@@ -1083,6 +1261,9 @@ public class Play{
                 scannername.nextLine();
                 x= isInt();
                     }
+                scannername.nextLine();
+                move_choosen(curr, i);
+
 
             }
         }
@@ -1109,10 +1290,7 @@ public class Play{
     //set the postion of monster and heros on the board given the row and col
     public static void set_postion(Character_monster current,int row, int col){
 
-
-        String piece=current.pieceName;
-        System.out.println(piece);
-        playingboard.move(row,col,piece);
+        playingboard.move(row,col,current);
 
     }
     //initialzie the starting postion of HERO
@@ -1185,6 +1363,7 @@ public class Play{
         scannername.nextLine();
         //set up the board, monster, and heros
         playingboard= new Board(8,8); 
+        playingboard.printBoard();
         monsters=possiblemoster.matchLevel(currentplayer.returnmaxlevel(),num_hero);
         heroes= currentplayer.returnHerolist();
         initalize_Monsterpostion();
