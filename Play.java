@@ -1,18 +1,16 @@
 import java.util.Random;
 import java.util.*;
 public class Play{
-    private static Player currentplayer;
-    private static  ArrayList<Character> heroes;
-    private static ArrayList<Monster> monsters;
-    private static Hero_list possiblehero= new Hero_list();
+    protected static Player currentplayer;
+    protected static Hero_list possiblehero= new Hero_list();
     public static Scanner scannername = new Scanner (System.in);
-    private static int num_hero;
+    protected static int num_hero;
     private static Board playingboard;
-    private static Monsterlist possiblemoster= new Monsterlist();
+    protected static Monsterlist possiblemoster= new Monsterlist();
     // private static ArrayList<Character>current_heros;
     // private static ArrayList<Monster> current_monsters;
-    private static ArrayList<Character> deadcharacters= new ArrayList<Character>();
-    private static ArrayList<Monster> deadMonster= new ArrayList<Monster>();
+    protected static ArrayList<Character> deadcharacters= new ArrayList<Character>();
+    protected static ArrayList<Monster> deadMonster= new ArrayList<Monster>();
     
     public static void add_hero(int x){
 
@@ -1006,10 +1004,15 @@ public class Play{
     
     //     // }
 
+<<<<<<< HEAD
     // }
 
     // //check if you type in the instructions that is allowed in game.
     public static String valid_move(String x){
+=======
+    }
+    public static void valid_input3(String x){
+>>>>>>> f022338d4ab01d4d341c47e1e93aeb5dd71a6962
         // System.out.println((x.equals("w")==false|| x.equals("a")==false|| x.equals("s")==false ||x.equals("d")==false||x.equals("q")==false||x.equals("t")==false||x.equals("e")==false));
         // System.out.println(true||false);
         while(x.equals("w")==false&&x.equals("a")==false&& x.equals("s")==false &&x.equals("d")==false){
@@ -1021,10 +1024,14 @@ public class Play{
         }
         return x;
     }
+<<<<<<< HEAD
     //     whattodonext(x);
     // }
     
     //check if you enter a right instruction in game.
+=======
+
+>>>>>>> f022338d4ab01d4d341c47e1e93aeb5dd71a6962
     public static void actual_game_wronginput(){
         System.out.print("Invalid move! Enter your moves again: ");
         String x;
@@ -1132,6 +1139,7 @@ public class Play{
 
 
     
+<<<<<<< HEAD
           
     //     if(instruction.equals("w")){
     //         nextrow=currentrow-1;
@@ -1268,13 +1276,24 @@ public class Play{
             }
         }
 
+=======
+    public static void actual_game(){
+        // scannername.nextLine();
+        System.out.print("Enter your moves: ");
+        String x;
+>>>>>>> f022338d4ab01d4d341c47e1e93aeb5dd71a6962
         
+        // scannername.nextLine();
+        x= scannername.nextLine();
+        // System.out.println(x);
+        x=x.toLowerCase();
+        
+        // System.out.println(x.equals("a"));
+        valid_input3(x);
 
 
     }
 
-
-//Check if the input to a value is an interger when asked for an integer input!
     public static int isInt(){
         
         while (!scannername.hasNextInt()) {
@@ -1287,6 +1306,7 @@ public class Play{
           return number;
     
     }
+<<<<<<< HEAD
     //set the postion of monster and heros on the board given the row and col
     public static void set_postion(Character_monster current,int row, int col){
 
@@ -1307,28 +1327,18 @@ public class Play{
   
           set_postion(curr,curr.row,curr.col);
     }
+=======
+>>>>>>> f022338d4ab01d4d341c47e1e93aeb5dd71a6962
     
-}
-//intitlize the starting positon of Monster 
-    public static void initalize_Monsterpostion(){
-        int counter=0;
-        int lane=0;
-        Character_monster curr;
-        System.out.println(monsters.size());
-        for(int i = 0; i <monsters.size(); i++){
-          curr = monsters.get(i);
-          curr.setpiecename("M"+ (i+1));
-          curr.setrow(counter);
-          curr.setcol(lane);
-          counter+=3;
-          set_postion(curr, curr.row, curr.col);
-    }
-    
-}
-//introduction to set up game by choosing your heros. 
-    public static void introduction_setup(){
-        num_hero=3;
-        System.out.println("Welcome to the Quest of Legend.");
+    public static void introduction_setup() {
+        System.out.println("Would you like to play the classic game of Quest or new Quest of Legends?");
+        System.out.println("Enter 0 for Quest and 1 for Quest of Legends");
+        int choice = isInt();
+        if (choice == 1) {
+            PlayQuestOfLegends.start();
+        } else {
+
+        System.out.println("The land of Java was taken over by the evil beasts.");
         System.out.println("In the middle of chaos, you were choosen to save the world.");
         System.out.println("You will lead the team of heroes to bring peace for the kingdom");
         System.out.println("Tell me us your name, before your adventure begins");
@@ -1339,7 +1349,20 @@ public class Play{
         currentplayer= new Player(name,'O');
         System.out.println();
         System.out.println(name + " ,we have choosen some of the brightest strongest heroes in the whole kingdom to aid you!");
-        System.out.println("Since you have 3 nexus to defend from the monster, please choose your 3 heros!");
+        System.out.println("Its important to know having too much teammates will lead to more monsters being alerted and attack your team!");
+        System.out.println("You can choose to lead with 1,2,3 hero(s)");
+        System.out.println( "Choose the number of heroes you want on your team(1-3): ");
+
+        scannername.nextLine();
+        num_hero =isInt();
+        
+        
+        while (valid_input(num_hero)== false){
+            System.out.print("Incorrect input! Please choose a number from 1-3: ");
+            scannername.nextLine();
+            num_hero= isInt();
+        }
+        System.out.println ("Great! You will now get to choose "+ num_hero +" companions!");
         System.out.println("You might want to decide who to pick with you base on their class!");
         System.out.println("Warriors are favored on the strength and the agility.");
         System.out.println("Sorcerers are favored on the dexterity and the agility.");
@@ -1358,9 +1381,10 @@ public class Play{
         System.out.println("You cannot move to terrain(X), but can visit market(M) to buy and sell stuff. All others are the wild that will have a chance to spawn monsters! Beware!");
         System.out.println("Check your hero stats using T");
         System.out.println("Check inventory to equip and use items using I");
-        System.out.println("To teleport to a new map use M");
+        System.out.println("To be relocated to a new map use R");
         System.out.println("Close the game using Q");
         scannername.nextLine();
+<<<<<<< HEAD
         //set up the board, monster, and heros
         playingboard= new Board(8,8); 
         playingboard.printBoard();
@@ -1368,18 +1392,15 @@ public class Play{
         heroes= currentplayer.returnHerolist();
         initalize_Monsterpostion();
         initalize_heropostion(8);
+=======
+        playingboard= new Board(8,8);
+        currentplayer.setCol(8/2);
+        currentplayer.setRow(8/2);
+        playingboard.SetPlayerPiece(currentplayer.return_playerpiece());
+>>>>>>> f022338d4ab01d4d341c47e1e93aeb5dd71a6962
         playingboard.printBoard();
         actual_game();
-        
-
-
-        
+        }
     }
-    
-    // public static void main (String[] args){
-    //     introduction_setup();
-    // } 
-
-
     
 }
