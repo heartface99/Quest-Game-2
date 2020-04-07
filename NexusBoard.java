@@ -22,30 +22,23 @@ class NexusBoard extends Board {
 	    int val;
 	    Random rand = new Random(); 
 	    for( i= curr_row; i< curr_row+2; i++){
-	        for ( k= 0; k< dimensionc;k++){
+	        for ( k= 0; k< dimensionc; k++){
 	            if(k==0||k== dimensionc-1){
 	                board[i][k]= new Tile(i,k,'N');
-	                
 	            }    
 	            else{
-	                
-	                 val = rand.nextInt(10);
-	                
-	               
+	                val = rand.nextInt(10);
 	                if(val == 0 ){
 	                    board[i][k]= new Tile(i, k,'B');
 	                 }
 	                if(val== 1){
 	                    board[i][k]= new Tile(i,k,'C');
-	                
-	                 }
-	                 if(val==2 ){
-	                    board[i][k]= new Tile(i,k,'K');
-	                
-	                    }
-	                 if (val >= 3){
-	                    board[i][k]= new Tile(i,k,'P');
-	                 
+	                }
+	                if(val==2 ){
+	                	board[i][k]= new Tile(i,k,'K');
+	                }
+	                if (val >= 3){
+	                	board[i][k]= new Tile(i,k,'P');
 	                }
 		        }
 		    }
@@ -68,10 +61,10 @@ class NexusBoard extends Board {
 	}
 
 	//move each hero/monser  to a position r c. 	
-	public void move(int r,int c, String piece){
-		System.out.println(r+" "+c);
-		Tile current = board[r][c];	
-		current.set_character_piece(piece);
+	public void move(int r,int c, Character_monster curr){
+     System.out.println(r+" "+c);
+     Tile current = board[r][c];
+     current.set_character_piece(curr);
 	}
 
 	public char check_tile(int r,int c){	
@@ -139,11 +132,35 @@ class NexusBoard extends Board {
 	     
 	    }
 	}
+
+	//checking if you are moving to an available space
+	public String movingtoempyspace(int row,int col,Character_monster curr){
+	   
+	    if(row>=this.dimensionr || col>=this.dimensionc|| row<0 || col<0){
+	        
+	    
+	        return "X";
+	    } 
+	    
+	    Tile current= board[row][col];
+	    System.out.println(current.get_characterpiece());
+	    if(current.get_characterpiece().equals("  ")==false){
+	        
+	      
+	        return "X";
+	    }
+	    else{
+	    System.out.println("here3");
+	    Tile previous = board[curr.row][curr.col];
+	    previous.reset_characterpiece();
+	    move(row, col, curr);
+	    return "OK";
+	    }
+	   
+	}
+
 	public static void main(String[] args){	
-        NexusBoard b1= new NexusBoard(3);	
-        b1.move(0, 7, "H1");	
-        b1.move(3, 7, "H2");	
-        b1.move(6, 7, "H3");	
+        NexusBoard b1= new NexusBoard(3);
         b1.printBoard();
     }
 }	

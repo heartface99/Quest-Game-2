@@ -83,6 +83,7 @@ public class Board{
         int c= this.dimensionc/2;
         setPiece(r, c,piece);
     }
+
     //print the board at current state
     public void printBoard(){
         //set the seperator +--
@@ -115,6 +116,7 @@ public class Board{
         }
     }
 
+    //return the market on the playing field
     public MainMarket getMarket(){
         return this.market;
     }

@@ -7,6 +7,7 @@ public class PlayQuestOfLegends extends Play{
 
     //introduction to set up game by choosing your heros. 
     public static void start(){
+        //previously introduction setup
         num_hero = 3;
         System.out.println("Welcome to the Quest of Legend.");
         System.out.println("In the middle of chaos, you were choosen to save the world.");
@@ -52,20 +53,142 @@ public class PlayQuestOfLegends extends Play{
         play();
     }
 
+    //check if you type in the instructions that is allowed in game.
+    public static String valid_move(String x) {
+        // System.out.println((x.equals("w")==false|| x.equals("a")==false|| x.equals("s")==false ||x.equals("d")==false||x.equals("q")==false||x.equals("t")==false||x.equals("e")==false));
+        // System.out.println(true||false);
+        while(x.equals("w")==false&&x.equals("a")==false&& x.equals("s")==false &&x.equals("d")==false){
+        //  while(x.equals("a")==false||x.equals("w")==false){
+            System.out.print("Invalid input! Enter your moves: ");
+
+            x= scannername.nextLine();
+            x=x.toLowerCase();
+        }
+        return x;
+    }
+
+    //after user choose what to do next, you elaborate on what their choices can be
+    public static void chosenMove(Character_monster curr, int i){
+        //player choose to make a move. 
+        if(i== 1){
+            boolean loop= true;
+            while(loop){
+            System.out.println("Make a move(w,s,a,d): ");
+            String x= scannername.nextLine();
+            String instruction = valid_move(x);
+            loop = makeMove(x,curr);
+            }
+            playingboard.printBoard();
+        }
+    }
+
+        
+    public static boolean makeMove(String instruction, Character_monster curr){
+        // makes the move on the board according to the instructions and the current monster
+        int currentrow=curr.row;
+        int currentcol=curr.col;
+        int nextrow;
+        int nextcol;
+        if(instruction.equals("a")){
+            nextrow=currentrow-1;
+            nextcol= currentcol;
+        
+            if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
+                curr.row=(nextrow);
+                curr.col=(nextcol);
+                playingboard.printBoard();
+                return false;
+            }
+
+            else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){ 
+                System.out.println("Cannot move there!");
+                return true;
+            }
+        }
+
+        if(instruction.equals("w")){
+            nextrow=currentrow;
+            nextcol= currentcol-1;
+            System.out.println(curr.row+" "+curr.col);
+            System.out.println(nextrow+" "+ nextcol);
+            // System.out.println((playingboard.movingtoempyspace(nextrow,nextcol,curr)));
+            if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
+                curr.row=(nextrow);
+                curr.col=(nextcol);
+                playingboard.printBoard();
+            return false;
+            
+            }
+           
+
+            
+            else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){
+                System.out.println("Cannot move there!");
+                return true;
+            }
+            
+        }
+        if(instruction.equals("s")){
+            nextrow=currentrow;
+            nextcol= currentcol+1;
+        
+            if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
+                curr.row=(nextrow);
+                curr.col=(nextcol);
+                playingboard.printBoard();
+            return false;
+            
+            }
+           
+
+            
+            else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){
+                System.out.println("Cannot move there!");
+                return true;
+            }
+        }
+            
+            if(instruction.equals("d")){
+                nextrow=currentrow+1;
+                nextcol= currentcol;
+            
+                if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
+                    curr.row=(nextrow);
+                    curr.col=(nextcol);
+                    playingboard.printBoard();
+                   
+                return false;
+                
+                }
+               
+    
+                
+                else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){
+                    System.out.println("Cannot move there!");
+                    return true;
+                }
+            }
+        return true;
+        }
+
+
 	public static void play(){
+        // previously "actual_game"
+        //ask the user for their instructions on what they would like to do next
         char celltype;
         int count = 1;
         int x;
+
         for(int i = 0; i <heroes.size(); i++){
             Character curr= heroes.get(i);
             int row= curr.row;
             int col= curr.col;
             
             //check what tile the hero is at.
-            celltype = playingboard.check_tile(row, col);
+            celltype=playingboard.check_tile(row, col);
             //check if there is enemy ahead or beside 
-            System.out.print("Enter moves for "+ curr.getName()+ " : \n");
-            if(celltype== 'N') {
+            System.out.print("Enter moves for "+ curr.getName()+ " : ");
+            if(celltype== 'N'){
                 System.out.println("1) move");
                 System.out.println("2) attack");
                 System.out.println("3) cast spell");
@@ -78,12 +201,15 @@ public class PlayQuestOfLegends extends Play{
                 System.out.println("Choose a number from 1-9: ");
                 x=isInt();
                 while (valid_input2(x,9)== false){
-	                System.out.println("Incorrect input! Please choose a correct number: ");
-	                scannername.nextLine();
-	                x= isInt();
-                   }
+                System.out.println("Incorrect input! Please choose a correct number: ");
+                scannername.nextLine();
+                x= isInt();
+               
+                    } 
+                scannername.nextLine();
+                chosenMove(curr,x);
                 }
-            else {
+            else{
                 System.out.println("1) move");
                 System.out.println("2) attack");
                 System.out.println("3) cast spell");
@@ -95,25 +221,16 @@ public class PlayQuestOfLegends extends Play{
                 System.out.println("Choose a number from 1-8: ");
                 x=isInt();
                 while (valid_input2(x,8)== false){
-	                System.out.println("Incorrect input! Please choose a correct number: ");
-	                scannername.nextLine();
-	                x= isInt();
-                }
+                System.out.println("Incorrect input! Please choose a correct number: ");
+                scannername.nextLine();
+                x= isInt();
+                    }
+                scannername.nextLine();
+                chosenMove(curr, i);
             }
-
-         //    if (x==0) {
-	        //     choosen=whichenemy(current_monsters);
-	        //     currentchar.attack(choosen);
-	        // }
         }
     }
 
-    //set the postion of monster and heros on the board given the row and col
-    public static void set_postion(Character_monster current,int row, int col){
-        String piece=current.pieceName;
-        System.out.println(piece);
-        playingboard.move(row,col,piece);
-    }
 
     //initialzie the starting postion of HERO
     public static void initalizeHeroPostion(int c){
@@ -124,12 +241,17 @@ public class PlayQuestOfLegends extends Play{
           curr.setpiecename("H"+ (i+1));
           curr.setrow(counter);
           curr.setcol(c-1);
-          
           counter+=3;
-  
           set_postion(curr,curr.row,curr.col);
     	}
 	}
+
+    //set the postion of monster and heros on the board given the row and col
+    public static void set_postion(Character_monster current,int row, int col){
+
+        playingboard.move(row,col,current);
+
+    }
 
 	//intitlize the starting positon of Monster 
     public static void initalizeMonsterPostion(){
