@@ -1,5 +1,5 @@
 import java.util.Random;
-
+import java.util.*;
 class NexusBoard extends Board {
 	//constructor which will set up board base on how many lane you would like	
 	public NexusBoard(int dimensionr,int dimensionc ) {
@@ -60,6 +60,131 @@ class NexusBoard extends Board {
 	    }	
 	}
 
+	//check if there is a monster in range
+	public ArrayList<Monster>  monster_in_range(int r,int c){
+		int ahead_row= r;
+		int ahead_col= c-1;
+		ArrayList<Monster> monster_inrange=new ArrayList<Monster> ();
+		//check if the row is in dimentison
+		
+		if(ahead_row>=this.dimensionr || ahead_col>=this.dimensionc|| ahead_row<0 || ahead_col<0){
+	        
+	    } 
+	    else{
+		Tile current= board[ahead_row][ahead_col];
+		if(current.return_character() instanceof Monster){
+			monster_inrange.add((Monster)current.return_character());
+		}
+
+		}
+
+		int left_row= r-1;
+		int left_col = c;
+
+		if(left_row>=this.dimensionr || left_col>=this.dimensionc|| left_row<0 || left_col<0){
+	        
+	    } 
+	    else{
+		Tile current= board[left_row][left_col];
+		if(current.return_character() instanceof Monster){
+			monster_inrange.add((Monster)current.return_character());
+		}
+
+		}
+
+		int right_row= r+1;
+		int right_col= c;
+
+		if(right_row>=this.dimensionr || right_col>=this.dimensionc|| right_row<0 || right_col<0){
+	        
+	    } 
+	    else{
+		Tile current= board[right_row][right_col];
+		if(current.return_character() instanceof Monster){
+			monster_inrange.add((Monster)current.return_character());
+		}
+	}
+
+		return monster_inrange;
+
+
+
+	}
+
+	//check if a hero/monster has reach the nexus
+	public boolean win(){
+		//herowin
+		for(int x=0;x<dimensionc;x++){
+			Tile monsternexus=board [dimensionr-1][x];
+			if(monsternexus.return_character() instanceof Character){
+				System.out.println("Hero won!");
+				return true ;
+			}
+			else{
+				Tile heronexus=board [0][x];
+				if(monsternexus.return_character() instanceof Monster){
+					System.out.println("Monster won!");
+					return true;
+			}
+
+		
+		}
+	}
+
+		return false;
+
+	}
+
+	//check if there is a hero in range
+	public ArrayList<Character>  hero_in_range(int r,int c){
+		int ahead_row= r;
+		int ahead_col= c-1;
+		ArrayList<Character> hero_inrange=new ArrayList<Character> ();
+		//check if the row is in dimentison
+		
+		if(ahead_row>=this.dimensionr || ahead_col>=this.dimensionc|| ahead_row<0 || ahead_col<0){
+	        
+	    } 
+	    else{
+		Tile current= board[ahead_row][ahead_col];
+		if(current.return_character() instanceof Character){
+			hero_inrange.add((Character)current.return_character());
+		}
+
+		}
+
+		int left_row= r-1;
+		int left_col = c;
+
+		if(left_row>=this.dimensionr || left_col>=this.dimensionc|| left_row<0 || left_col<0){
+	        
+	    } 
+	    else{
+		Tile current= board[left_row][left_col];
+		if(current.return_character() instanceof Character){
+			hero_inrange.add((Character)current.return_character());
+		}
+
+		}
+
+		int right_row= r+1;
+		int right_col= c;
+
+		if(right_row>=this.dimensionr || right_col>=this.dimensionc|| right_row<0 || right_col<0){
+	        
+	    } 
+	    else{
+		Tile current= board[right_row][right_col];
+		if(current.return_character() instanceof Character){
+			hero_inrange.add((Character)current.return_character());
+		}
+	}
+
+		return hero_inrange;
+
+
+
+	}
 	//move each hero/monser  to a position r c. 	
 	public void move(int r,int c, Character_monster curr){
      System.out.println(r+" "+c);

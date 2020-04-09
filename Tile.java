@@ -34,7 +34,10 @@ public class Tile{
             return "  ";
         }
     }
-
+    
+    public Character_monster return_character(){
+        return this.characterhere;
+    }
     public void reset_characterpiece(){
         this.characterhere= null;
     }

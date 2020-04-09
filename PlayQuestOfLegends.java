@@ -68,7 +68,7 @@ public class PlayQuestOfLegends extends Play{
     }
 
     //after user choose what to do next, you elaborate on what their choices can be
-    public static void chosenMove(Character_monster curr, int i){
+    public static void chosenMove(Character curr, int i){
         //player choose to make a move. 
         boolean loop= true;
         switch (i) {
@@ -80,8 +80,10 @@ public class PlayQuestOfLegends extends Play{
                 loop = makeMove(x,curr);
                 }
                 playingboard.printBoard();
+                return;
             case 2:
-                System.out.println("not implemented yet");
+                attack(curr);
+                return;
             case 3:
                 System.out.println("not implemented yet");
             case 4:
@@ -99,8 +101,32 @@ public class PlayQuestOfLegends extends Play{
         }
     }
 
-        
-    public static boolean makeMove(String instruction, Character_monster curr){
+    //ask player which monster they want to attack 
+    public static void attack(Character curr){
+        ArrayList <Monster> monster_inrange= new ArrayList <Monster> ();
+        monster_inrange= playingboard.monster_in_range(curr.row,curr.col);
+        if(monster_inrange.size() >0){
+            System.out.println("Which enemey do you want to target?");
+      
+            possiblemoster.printMonster(monster_inrange);
+            
+            int x= isInt();
+            scannername.nextLine();
+            while (valid_input2(x,monster_inrange.size()-1)== false){
+                System.out.println("Incorrect input! Please choose a correct number: ");
+                // scannername.nextLine();
+                x= isInt();
+            }
+            Monster choosenmonster= monsters.get(x);
+            curr.attack(choosenmonster);
+
+        }
+        else{
+            System.out.println("There is no monster to attack! Please choose a different move!");
+            output_choice(curr);
+        }
+    }
+    public static boolean makeMove(String instruction, Character curr){
         // makes the move on the board according to the instructions and the current monster
         int currentrow=curr.row;
         int currentcol=curr.col;
@@ -188,25 +214,10 @@ public class PlayQuestOfLegends extends Play{
         return true;
         }
 
-
-	public static void play(){
-        // previously "actual_game"
-        //ask the user for their instructions on what they would like to do next
-        char celltype;
-        int count = 1;
+    //output the move a player can choose
+    public static void output_choice(Character curr){
         int x;
-
-        for(int i = 0; i <heroes.size(); i++){
-            Character curr= heroes.get(i);
-            int row= curr.row;
-            int col= curr.col;
-            
-            //check what tile the hero is at.
-            celltype=playingboard.check_tile(row, col);
-            //check if there is enemy ahead or beside 
-            System.out.print("Enter moves for "+ curr.getName()+ " : ");
-            if(celltype== 'N'){
-                System.out.println("1) move");
+        System.out.println("1) move");
                 System.out.println("2) attack");
                 System.out.println("3) cast spell");
                 System.out.println("4) Use inventory");
@@ -225,27 +236,100 @@ public class PlayQuestOfLegends extends Play{
                     } 
                 scannername.nextLine();
                 chosenMove(curr,x);
-                }
-            else{
-                System.out.println("1) move");
-                System.out.println("2) attack");
-                System.out.println("3) cast spell");
-                System.out.println("4) Use inventory");
-                System.out.println("5) return to base");
-                System.out.println("6) teleport to another lane");
-                System.out.println("7) check hero stats ");
-                System.out.println("8) check monster stats ");
-                System.out.println("Choose a number from 1-8: ");
-                x=isInt();
-                while (valid_input2(x,8)== false){
-                System.out.println("Incorrect input! Please choose a correct number: ");
-                scannername.nextLine();
-                x= isInt();
-                    }
-                scannername.nextLine();
-                chosenMove(curr, i);
-            }
+    }
+
+    //monster makes a move.
+    public static void monster_move(Monster curr){
+        //monster will attack if there is a hero in range
+        ArrayList<Character> hero_inrange= new ArrayList<Character>();
+        hero_inrange=playingboard.hero_in_range(curr.row,curr.col);
+        if(hero_inrange.size()>0){
+            Random rand = new Random();
+            int val = rand.nextInt(hero_inrange.size());
+            Character heroattacked=hero_inrange.get(val);
+            curr.attackhero(heroattacked);
         }
+        //if no hero in range, it moves forward one block
+        else {
+            playingboard.movingtoempyspace(curr.row, curr.col+1,curr);
+        }
+
+    }
+	public static void play(){
+        // previously "actual_game"
+        //ask the user for their instructions on what they would like to do next
+        char celltype;
+        int count = 1;
+        int x;
+        boolean won=false;
+        while(playingboard.win()== false){
+            for(int i = 0; i <heroes.size(); i++){
+              Character curr= heroes.get(i);
+                int row= curr.row;
+                int col= curr.col;
+            
+            //check what tile the hero is at.
+                celltype=playingboard.check_tile(row, col);
+            //check if there is enemy ahead or beside 
+                System.out.print("Enter moves for "+ curr.getName()+ " : ");
+                output_choice(curr);
+                if(playingboard.win()==true){
+                    won=false;
+                    break;
+                }
+            }
+            if(won== false){
+                for(int i = 0; i <monsters.size(); i++){
+                        Monster currmonster= monsters.get(i);
+                      monster_move(currmonster);
+
+            }
+            playingboard.printBoard();
+
+            
+
+
+            }
+            // if(celltype== 'N'){
+            //     System.out.println("1) move");
+            //     System.out.println("2) attack");
+            //     System.out.println("3) cast spell");
+            //     System.out.println("4) Use inventory");
+            //     System.out.println("5) return to base");
+            //     System.out.println("6) teleport to another lane");
+            //     System.out.println("7) check hero stats ");
+            //     System.out.println("8) check monster stats ");
+            //     System.out.println("9) Acess Market");
+            //     System.out.println("Choose a number from 1-9: ");
+            //     x=isInt();
+            //     while (valid_input2(x,9)== false){
+            //     System.out.println("Incorrect input! Please choose a correct number: ");
+            //     scannername.nextLine();
+            //     x= isInt();
+               
+            //         } 
+            //     scannername.nextLine();
+            //     chosenMove(curr,x);
+                }
+        //     else{1
+
+        //         System.out.println("3) cast spell");
+        //         System.out.println("4) Use inventory");
+        //         System.out.println("5) return to base");
+        //         System.out.println("6) teleport to another lane");
+        //         System.out.println("7) check hero stats ");
+        //         System.out.println("8) check monster stats ");
+        //         System.out.println("Choose a number from 1-8: ");
+        //         x=isInt();
+        //         while (valid_input2(x,8)== false){
+        //         System.out.println("Incorrect input! Please choose a correct number: ");
+        //         scannername.nextLine();
+        //         x= isInt();
+        //             }
+        //         scannername.nextLine();
+        //         chosenMove(curr, i);
+        //     }
+        // }
     }
 
 
