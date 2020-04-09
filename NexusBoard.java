@@ -187,7 +187,7 @@ class NexusBoard extends Board {
 	}
 	//move each hero/monser  to a position r c. 	
 	public void move(int r,int c, Character_monster curr){
-     System.out.println(r+" "+c);
+     
      Tile current = board[r][c];
      current.set_character_piece(curr);
 	}
@@ -268,14 +268,13 @@ class NexusBoard extends Board {
 	    } 
 	    
 	    Tile current= board[row][col];
-	    System.out.println(current.get_characterpiece());
+
 	    if(current.get_characterpiece().equals("  ")==false){
 	        
 	      
 	        return "X";
 	    }
 	    else{
-	    System.out.println("here3");
 	    Tile previous = board[curr.row][curr.col];
 	    previous.reset_characterpiece();
 	    move(row, col, curr);

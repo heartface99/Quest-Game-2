@@ -241,9 +241,11 @@ public class PlayQuestOfLegends extends Play{
     //monster makes a move.
     public static void monster_move(Monster curr){
         //monster will attack if there is a hero in range
+    
         ArrayList<Character> hero_inrange= new ArrayList<Character>();
         hero_inrange=playingboard.hero_in_range(curr.row,curr.col);
         if(hero_inrange.size()>0){
+        
             Random rand = new Random();
             int val = rand.nextInt(hero_inrange.size());
             Character heroattacked=hero_inrange.get(val);
@@ -251,7 +253,11 @@ public class PlayQuestOfLegends extends Play{
         }
         //if no hero in range, it moves forward one block
         else {
+          
+           
             playingboard.movingtoempyspace(curr.row, curr.col+1,curr);
+            curr.col=curr.col+1;
+            playingboard.printBoard();
         }
 
     }
@@ -274,13 +280,15 @@ public class PlayQuestOfLegends extends Play{
                 System.out.print("Enter moves for "+ curr.getName()+ " : ");
                 output_choice(curr);
                 if(playingboard.win()==true){
-                    won=false;
+                    won=true;
                     break;
                 }
             }
+            
             if(won== false){
                 for(int i = 0; i <monsters.size(); i++){
-                        Monster currmonster= monsters.get(i);
+                     System.out.println("here,");
+                      Monster currmonster= monsters.get(i);
                       monster_move(currmonster);
 
             }
