@@ -1,10 +1,13 @@
 import java.util.Random;
 
-public class Board{
+public class Board {
+    /*
+    The base class for the playing board, it is made up of tiles and contains functions for accessing the board and moving
+    */
     protected Tile[][] board;
     protected int dimensionr;
     protected int dimensionc;
-    protected MainMarket market;
+
     //constructor 
     public Board(int dimensionr,int dimensionc ){
         this.dimensionr= dimensionr;
@@ -14,11 +17,8 @@ public class Board{
         board= new Tile[dimensionr][dimensionc];
 
         intialize_board();
-        market= new MainMarket();
         
     }
-
-        
 
     public int getrow(){
         return this.dimensionr;
@@ -71,11 +71,13 @@ public class Board{
         setPiece(row, col, piece);
         return "OK";
     }
+
     public void setPiece(int r, int c,char piece){
         
         Tile current= board[r][c];
         current.setDisplaytile(piece);
     }
+    
     public void SetPlayerPiece(char piece){
         //  System.out.println(this.dimensionr/2);
          int r= this.dimensionr/2;
@@ -117,9 +119,9 @@ public class Board{
     }
 
     //return the market on the playing field
-    public MainMarket getMarket(){
-        return this.market;
-    }
+    // public MainMarket getMarket(){
+    //     return this.market;
+    // }
 
     public static void main(String[] args){
         Board b1= new Board(8,8);

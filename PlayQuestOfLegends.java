@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class PlayQuestOfLegends extends Play{
-	private static  ArrayList<Character> heroes;
+	private static ArrayList<Character> heroes;
     private static ArrayList<Monster> monsters;
     private static NexusBoard playingboard;
 
@@ -17,7 +17,7 @@ public class PlayQuestOfLegends extends Play{
         
         System.out.print("Please enter your name:");
         String name = scannername.next();
-        currentplayer= new Player(name,'O');
+        currentplayer = new Player(name,'O');
         System.out.println();
         System.out.println(name + " ,we have choosen some of the brightest strongest heroes in the whole kingdom to aid you!");
         System.out.println("Since you have 3 nexus to defend from the monster, please choose your 3 heros!");
@@ -67,6 +67,7 @@ public class PlayQuestOfLegends extends Play{
         return x;
     }
 
+
     //after user choose what to do next, you elaborate on what their choices can be
     public static void chosenMove(Character curr, int i){
         //player choose to make a move. 
@@ -86,18 +87,25 @@ public class PlayQuestOfLegends extends Play{
                 return;
             case 3:
                 System.out.println("not implemented yet");
+                return;
             case 4:
-                System.out.println("not implemented yet");
+                inventory();
+                return;
             case 5:
                 System.out.println("not implemented yet");
+                return;
             case 6:
                 System.out.println("not implemented yet");
+                return;
             case 7:
-                System.out.println("not implemented yet");
+                currentplayer.printlist();
+                return;
             case 8:
-                System.out.println("not implemented yet");
+                possiblemoster.printMonster(monsters);
+                return;
             case 9:
-                System.out.println("not implemented yet");
+                Marketplace();
+                return;
         }
     }
 
@@ -117,7 +125,7 @@ public class PlayQuestOfLegends extends Play{
                 // scannername.nextLine();
                 x= isInt();
             }
-            Monster choosenmonster= monsters.get(x);
+            Monster choosenmonster = monsters.get(x);
             curr.attack(choosenmonster);
 
         }
@@ -126,6 +134,7 @@ public class PlayQuestOfLegends extends Play{
             output_choice(curr);
         }
     }
+
     public static boolean makeMove(String instruction, Character curr){
         // makes the move on the board according to the instructions and the current monster
         int currentrow=curr.row;
@@ -217,25 +226,26 @@ public class PlayQuestOfLegends extends Play{
     //output the move a player can choose
     public static void output_choice(Character curr){
         int x;
-        System.out.println("1) move");
-                System.out.println("2) attack");
-                System.out.println("3) cast spell");
-                System.out.println("4) Use inventory");
-                System.out.println("5) return to base");
-                System.out.println("6) teleport to another lane");
-                System.out.println("7) check hero stats ");
-                System.out.println("8) check monster stats ");
-                System.out.println("9) Acess Market");
-                System.out.println("Choose a number from 1-9: ");
-                x=isInt();
-                while (valid_input2(x,9)== false){
-                System.out.println("Incorrect input! Please choose a correct number: ");
-                scannername.nextLine();
-                x= isInt();
-               
-                    } 
-                scannername.nextLine();
-                chosenMove(curr,x);
+        System.out.println("1) Move");
+        System.out.println("2) Attack");
+        System.out.println("3) Cast spell");
+        System.out.println("4) Use inventory");
+        System.out.println("5) Return to base");
+        System.out.println("6) Teleport to another lane");
+        System.out.println("7) Check hero stats ");
+        System.out.println("8) Check monster stats ");
+        System.out.println("9) Access Market");
+        System.out.println("Choose a number from 1-9: ");
+        x=isInt();
+
+        while (valid_input2(x,9)== false){
+        System.out.println("Incorrect input! Please choose a correct number: ");
+        scannername.nextLine();
+        x= isInt();
+       
+            } 
+        scannername.nextLine();
+        chosenMove(curr,x);
     }
 
     //monster makes a move.
@@ -277,7 +287,7 @@ public class PlayQuestOfLegends extends Play{
             //check what tile the hero is at.
                 celltype=playingboard.check_tile(row, col);
             //check if there is enemy ahead or beside 
-                System.out.print("Enter moves for "+ curr.getName()+ " : ");
+                System.out.print("Enter moves for "+ curr.getName()+ " : \n");
                 output_choice(curr);
                 if(playingboard.win()==true){
                     won=true;
@@ -293,52 +303,8 @@ public class PlayQuestOfLegends extends Play{
 
             }
             playingboard.printBoard();
-
-            
-
-
             }
-            // if(celltype== 'N'){
-            //     System.out.println("1) move");
-            //     System.out.println("2) attack");
-            //     System.out.println("3) cast spell");
-            //     System.out.println("4) Use inventory");
-            //     System.out.println("5) return to base");
-            //     System.out.println("6) teleport to another lane");
-            //     System.out.println("7) check hero stats ");
-            //     System.out.println("8) check monster stats ");
-            //     System.out.println("9) Acess Market");
-            //     System.out.println("Choose a number from 1-9: ");
-            //     x=isInt();
-            //     while (valid_input2(x,9)== false){
-            //     System.out.println("Incorrect input! Please choose a correct number: ");
-            //     scannername.nextLine();
-            //     x= isInt();
-               
-            //         } 
-            //     scannername.nextLine();
-            //     chosenMove(curr,x);
-                }
-        //     else{1
-
-        //         System.out.println("3) cast spell");
-        //         System.out.println("4) Use inventory");
-        //         System.out.println("5) return to base");
-        //         System.out.println("6) teleport to another lane");
-        //         System.out.println("7) check hero stats ");
-        //         System.out.println("8) check monster stats ");
-        //         System.out.println("Choose a number from 1-8: ");
-        //         x=isInt();
-        //         while (valid_input2(x,8)== false){
-        //         System.out.println("Incorrect input! Please choose a correct number: ");
-        //         scannername.nextLine();
-        //         x= isInt();
-        //             }
-        //         scannername.nextLine();
-        //         chosenMove(curr, i);
-        //     }
-        // }
-    }
+    }}
 
 
     //initialzie the starting postion of HERO

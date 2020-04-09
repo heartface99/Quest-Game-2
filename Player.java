@@ -60,13 +60,8 @@ public class Player{
 
     }
     return maxlevel;
-}
+    }
 
-
-    
-
-  
-   
     //padding for the printing of the hero to look neater
     public String pad (String input,int num_extended){
         int counter;
@@ -77,6 +72,7 @@ public class Player{
             }
             return input;
         }
+        
     //print the current status of all the hero the player have
     public void printlist(){
         

@@ -1,17 +1,20 @@
 import java.util.Random;
 import java.util.*;
+
 public class Play{
+    /*
+    The base class for playing the quest game
+    */
     protected static Player currentplayer;
     protected static Hero_list possiblehero= new Hero_list();
-    public static Scanner scannername = new Scanner (System.in);
+    public static Scanner scannername = new Scanner(System.in);
     protected static int num_hero;
     private static Board playingboard;
     protected static Monsterlist possiblemoster= new Monsterlist();
-    // private static ArrayList<Character>current_heros;
-    // private static ArrayList<Monster> current_monsters;
     protected static ArrayList<Character> deadcharacters= new ArrayList<Character>();
     protected static ArrayList<Monster> deadMonster= new ArrayList<Monster>();
-    
+    protected static MainMarket market = new MainMarket();
+
     public static void add_hero(int x){
 
         while (valid_input2(x,possiblehero.getlist().size())==false)  {
@@ -31,8 +34,8 @@ public class Play{
             currentplayer.add_hero(added_hero);
 
         }
-
     }
+
     public static void adding_hero_final(int loop){
         while(loop >0){
             System.out.println("Please choose a number from 0-"+ (possiblehero.getlist().size()-1));
@@ -41,8 +44,7 @@ public class Play{
             add_hero(choice);
            
             loop--;
-            }
-
+        }
     }
 
 
@@ -63,10 +65,9 @@ public class Play{
         else{
             return false;
         }
-    
     }
+
     public static void buyPotion(Character currentchar){
-        MainMarket market= playingboard.getMarket();
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the potions sold in the shop.Some potions are only for temporary effect and will effect will be gone after battle.");
         market.printPotion();
@@ -101,7 +102,6 @@ public class Play{
             }
         }
     public static void buyWeapon(Character currentchar){
-        MainMarket market= playingboard.getMarket();
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the weapons sold in the shop.");
         market.printWeapon();
@@ -137,9 +137,7 @@ public class Play{
         }
 
 
-
     public static void buyArmor(Character currentchar){
-        MainMarket market= playingboard.getMarket();
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the armors sold in the shop.");
         market.printArmor();
@@ -174,8 +172,7 @@ public class Play{
             }
         }
 
-        public static void buySpell(Character currentchar){
-            MainMarket market= playingboard.getMarket();
+        public static void buySpell(Character currentchar) {
             String yesno; 
             System.out.println(currentchar.getName()+" ,here is all the spells sold in the shop.");
             System.out.println("Ice spell reduce enemey damage, fire spell reduce their defense, lightning spell reduce their dodge change!");
@@ -404,9 +401,9 @@ public class Play{
            
         }
         
-        if(x== num_hero){
+        if(x == num_hero){
             System.out.println("Goodbye!Thanks for visting the market!");
-            playingboard.printBoard();
+            // playingboard.printBoard();
             scannername.nextLine();
             actual_game();
 
@@ -427,28 +424,27 @@ public class Play{
         
         if(x==0){
 
-        System.out.println();
-        System.out.println("0) Armor Shop");
-        System.out.println("1) Weapon Shop");
-        System.out.println("2) Potion Shop");
-        System.out.println("3) Spell Shop");
-        System.out.println("4) Quit");
-        System.out.println("Enter a number from 0-4: ");
-        scannername.nextLine();
-        x=isInt();
-        while (valid_input2(x,4)== false){
-            System.out.println("Incorrect input! Please choose a correct number: ");
+            System.out.println();
+            System.out.println("0) Armor Shop");
+            System.out.println("1) Weapon Shop");
+            System.out.println("2) Potion Shop");
+            System.out.println("3) Spell Shop");
+            System.out.println("4) Quit");
+            System.out.println("Enter a number from 0-4: ");
             scannername.nextLine();
-            x= isInt();
+            x=isInt();
+            while (valid_input2(x,4)== false){
+                System.out.println("Incorrect input! Please choose a correct number: ");
+                scannername.nextLine();
+                x= isInt();
+            }
+            if(x== 4){
+                Marketplace();
+            }
+            else{
+            buy(x,currentchar);
+            }
         }
-        if(x== 4){
-            Marketplace();
-        }
-        else{
-        buy(x,currentchar);
-        }
-    }
-
         else if(x==1){
             System.out.println();
             System.out.println("0) Sell Armor ");
@@ -469,8 +465,8 @@ public class Play{
             }
             else{
             sell(x,currentchar);
+            }
         }
-    }
     }
 }
     public static void EquipWeapon(Character currentchar){
@@ -506,8 +502,8 @@ public class Play{
                     inventory();
                 }
             }
-
     }
+
     public static void EquipSpell(Character currentchar){
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the spells own by the hero.");
@@ -551,34 +547,34 @@ public class Play{
         System.out.println("Enter a number from 0-" + (currentchar.returnArmorStorage().size())+" to equip: ");
         scannername.nextLine();
         int y= isInt();
-                 while (valid_input2(y,currentchar.returnArmorStorage().size())== false){
-                        System.out.println("Incorrect input! Please choose a correct number: ");
-                        scannername.nextLine();
-                        y= isInt();
+         while (valid_input2(y,currentchar.returnArmorStorage().size())== false){
+                System.out.println("Incorrect input! Please choose a correct number: ");
+                scannername.nextLine();
+                y= isInt();
+            }
+            if(y==(currentchar.returnArmorStorage().size())){
+                inventory();
+            }
+            else if (y==(currentchar.returnArmorStorage().size())==false){
+                currentchar.equipArmor(currentchar.getArmor(y));
+                scannername.nextLine();
+                System.out.println("Would you like to equip a different armor instead? (y/n):");
+                yesno = scannername.nextLine();
+                yesno=yesno.toLowerCase();
+                while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                    System.out.println("Invalid input! Enter (y/n):");
+                    yesno = scannername.nextLine();
+                    yesno=yesno.toLowerCase();
+                }
+                if(yesno.equals("y")){
+                    EquipArmor(currentchar);
                     }
-                    if(y==(currentchar.returnArmorStorage().size())){
-                        inventory();
-                    }
-                    else if (y==(currentchar.returnArmorStorage().size())==false){
-                        currentchar.equipArmor(currentchar.getArmor(y));
-                        scannername.nextLine();
-                        System.out.println("Would you like to equip a different armor instead? (y/n):");
-                        yesno = scannername.nextLine();
-                        yesno=yesno.toLowerCase();
-                        while(yesno.equals("y")==false&& yesno.equals("n")==false){
-                            System.out.println("Invalid input! Enter (y/n):");
-                            yesno = scannername.nextLine();
-                            yesno=yesno.toLowerCase();
-                        }
-                        if(yesno.equals("y")){
-                            EquipArmor(currentchar);
-                            }
-                        else if (yesno.equals("n")){
-                            inventory();
-                        }
-                    }
-
+                else if (yesno.equals("n")){
+                    inventory();
+                }
+            }
     }
+
     public static void usePotion_battle(Character currentchar,ArrayList<Monster> current_monsters){
         System.out.println(currentchar.getName()+" ,here is all the potions own by the hero.");
         currentchar.printPotionSale();
@@ -670,10 +666,10 @@ public class Play{
             currentchar.unequipSpell();
             inventory();
         }
-       
-
     }
-    public static void inventory(){
+
+    public static void inventory() {
+
         System.out.println("Choose a hero to use/equip/unequip item!");
         
         currentplayer.printheros();
@@ -686,10 +682,9 @@ public class Play{
             x= isInt();
         }
         
-        if(x== num_hero){
-            playingboard.printBoard();
+        if(x == num_hero){
             scannername.nextLine();
-            actual_game();
+            // actual_game();
 
         }
 
@@ -713,19 +708,14 @@ public class Play{
                 scannername.nextLine();
                 x= isInt();
             }
-            if(x== 7){
-                playingboard.printBoard();
+            if (x== 7){
                 scannername.nextLine();
-                actual_game();
+                // actual_game();
             }
             else{
                 Equip(x,currentchar);
             }
-        }
-    
-            
-    
-        
+        }   
     }
         
 
@@ -758,7 +748,7 @@ public class Play{
         return choosenmonster;
 
     }
-    public static void playermakesmove(Character currentchar,ArrayList<Monster> current_monsters){
+    public static void playermakesmove(Character currentchar, ArrayList<Monster> current_monsters){
         Monster choosen;
         System.out.println("Select a move for "+ currentchar.getName());
         System.out.println("0)Attack");

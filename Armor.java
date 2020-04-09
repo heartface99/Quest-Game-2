@@ -1,4 +1,7 @@
-public class Armor extends Item{
+public class Armor extends Item {
+	/*
+		Armor is an item that lowers the damage from attacks.
+	*/
     private int damage_reduction;
     
     public Armor(String name, int cost, int level, int damage_reduction){
@@ -8,6 +11,5 @@ public class Armor extends Item{
 
     public int getDamageRed(){
         return this.damage_reduction;
-    
-}
+	}	
 }
