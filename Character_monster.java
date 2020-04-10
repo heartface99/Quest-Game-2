@@ -1,8 +1,10 @@
-//A class that respresents what a monster and a hero should all have 
-public class Character_monster{
+public class Character_monster {
+    /*
+    A class that respresents what a monster and a hero should all have 
+    */
     protected String name;
     protected int level;
-    protected  int hp;
+    protected int hp;
     protected int totalhp;
     protected String pieceName="";
     protected int row;
@@ -15,21 +17,21 @@ public class Character_monster{
         this.totalhp=hp;
 
     }
-    //set the piece for the hero/monster aka H1.M1,etc
-    public void setpiecename(String s){
-        pieceName=s;
 
+    public void setpiecename(String s){
+        //set the piece for the hero/monster aka H1.M1,etc
+        pieceName = s;
     }
 
     public String getPieceName(){
         return this.pieceName;
     }
     public void setcol(int c){
-        col=c;
+        col = c;
     }
 
     public void setrow(int r){
-        row=r;
+        row = r;
     }
 
     public int getrow(){

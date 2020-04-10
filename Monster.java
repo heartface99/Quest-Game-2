@@ -21,15 +21,18 @@ public class Monster extends Character_monster{
 
 
     }
+
     public void reset(){
         this.hp=totalhp;
         this.defense=defense_perm;
         this.dodge_chance=dodge_chance_perm;
         this.damage=damage_perm;
     }
+
     public int get_hp(){
         return this.hp;
     }
+    
     public int get_totalhp(){
         return this.totalhp;
     }
@@ -37,9 +40,11 @@ public class Monster extends Character_monster{
     public int getLevel(){
         return this.level;
     }
+    
     public String getname(){
         return this.name;
     }
+    
     public int getDamage(){
         return this.damage;
     }
@@ -114,9 +119,6 @@ public class Monster extends Character_monster{
     else{
         System.out.println(name+" has dodge the attack!");
     }
-    
-
-
     
     }
 

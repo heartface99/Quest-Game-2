@@ -159,6 +159,6 @@
     public static void main (String[] args){
         Hero_list a= new Hero_list();
         a.printlist();
-}
+    }
 
- }
+}
