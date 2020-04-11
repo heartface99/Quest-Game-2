@@ -90,7 +90,7 @@ public class Player{
         System.out.println("+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+");
         for(int i = 0; i < player_heroes.size(); i++){
             current= player_heroes.get(i);
-            name= i+") "+current.getName();
+            name= i+") "+current.getName()+"("+ current.getPieceName()+")";
             name=pad(name,25);
             hp= Integer.toString(current.getHp())+"/" + Integer.toString(current.getTotalHp());
             hp=pad(hp,10);

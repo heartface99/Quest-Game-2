@@ -120,7 +120,7 @@ public void init_Monster(){
         System.out.println("+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+");
         for(i = 0; i < x.size(); i++){
             Monster curr= x.get(i);
-            name= curr.getname();
+            name= curr.getname() + "("+ curr.getPieceName()+")";
             name= pad(name,20);
             hp= curr.get_hp()+ "/"+curr.get_totalhp();
             hp=pad(hp,12);
