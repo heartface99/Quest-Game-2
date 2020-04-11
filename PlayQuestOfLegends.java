@@ -87,13 +87,13 @@ public class PlayQuestOfLegends extends Play{
                 attack(curr);
                 return;
             case 3:
-                System.out.println("not implemented yet");
+                cast_spell(curr);
                 return;
             case 4:
                 inventory(curr);
                 return;
             case 5:
-                System.out.println("not implemented yet");
+                return_base(curr);
                 return;
             case 6:
                 System.out.println("not implemented yet");
@@ -822,6 +822,26 @@ public static void usePotion(Character currentchar){
             }
         return true;
         }
+    
+    //return the player to base(base on their lane). 
+    public static void return_base(Character curr){
+        int base_row = curr.row;
+        int base_col = 7;
+
+        if(playingboard.movingtoempyspace(base_row,base_col,curr)== "OK"){
+            curr.row=(base_row);
+            curr.col=(base_col);
+            playingboard.printBoard();
+            return;
+
+        }
+        else{
+            System.out.println("There is someone at base already!");
+            output_choice(curr);
+        }
+
+
+    }
 
     //output the move a player can choose
     public static void output_choice(Character curr){
