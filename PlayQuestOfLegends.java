@@ -54,20 +54,6 @@ public class PlayQuestOfLegends extends Play{
         play();
     }
 
-    //check if you type in the instructions that is allowed in game.
-    public static String valid_move(String x) {
-        // System.out.println((x.equals("w")==false|| x.equals("a")==false|| x.equals("s")==false ||x.equals("d")==false||x.equals("q")==false||x.equals("t")==false||x.equals("e")==false));
-        // System.out.println(true||false);
-        while(x.equals("w")==false&&x.equals("a")==false&& x.equals("s")==false &&x.equals("d")==false){
-        //  while(x.equals("a")==false||x.equals("w")==false){
-            System.out.print("Invalid input! Enter your moves: ");
-
-            x= scannername.nextLine();
-            x=x.toLowerCase();
-        }
-        return x;
-    }
-
 
     //after user choose what to do next, you elaborate on what their choices can be
     public static void chosenMove(Character curr, int i){
@@ -76,12 +62,11 @@ public class PlayQuestOfLegends extends Play{
         switch (i) {
             case 1:
                 while(loop){
-                System.out.println("Make a move(w,s,a,d): ");
-                String x= scannername.nextLine();
-                String instruction = valid_move(x);
-                loop = makeMove(x,curr);
+                    System.out.println("Make a move(w,s,a,d): ");
+                    String x= scannername.nextLine();
+                    String instruction = valid_move(x);
+                    loop = makeMove(x,curr);
                 }
-                playingboard.printBoard();
                 return;
             case 2:
                 attack(curr);
@@ -96,7 +81,13 @@ public class PlayQuestOfLegends extends Play{
                 System.out.println("not implemented yet");
                 return;
             case 6:
-                System.out.println("not implemented yet");
+                playingboard.printTeleportOptions(curr);
+                while(loop){
+                    System.out.println("Which cell do you want to transport to?");
+                    int cell = isInt();
+                    cell = validTeleport(cell, curr);
+                    loop = teleport(curr, cell);
+                }
                 return;
             case 7:
                 currentplayer.printlist();
@@ -105,11 +96,46 @@ public class PlayQuestOfLegends extends Play{
                 possiblemoster.printMonster(monsters);
                 return;
             case 9:
-
                 Marketplace(curr);
 
+        }
     }
-}
+    //check if you type in the instructions that is allowed in game.
+    public static String valid_move(String x) {
+        while(x.equals("w")==false&&x.equals("a")==false&& x.equals("s")==false &&x.equals("d")==false){
+        //  while(x.equals("a")==false||x.equals("w")==false){
+            System.out.print("Invalid input! Enter your moves: ");
+
+            x= scannername.nextLine();
+            x=x.toLowerCase();
+        }
+        return x;
+    }
+
+    public static int validTeleport(int cell, Character currHero) {
+        // validates the cell that the hero wants to teleport to: not in the same lane
+        Tile t = playingboard.getTileFromTeleport(cell);
+        while (cell < 0 || cell > 47 || t.getCol() == currHero.getcol()) {
+             System.out.print("Invalid input! Make sure that you enter a number between 0 and 47 and that it is a valid cell to transport to: ");
+             scannername.nextLine();
+             cell = isInt();
+             t = playingboard.getTileFromTeleport(cell);
+        }
+        return cell;
+    }
+
+    public static boolean teleport(Character curr, int cell) {
+        //  Hero who is currently in one lane can teleport to another in order to help a fellow hero in need. 
+        // A player chooses to teleport one of the heroes from one lane to another at any time.
+    
+        Tile t = playingboard.getTileFromTeleport(cell);
+        if(playingboard.movingtoempyspace(t.getRow(),t.getCol(), curr)=="OK"){
+            curr.row = t.getRow();
+            curr.col = t.getCol();
+            return false;
+        } return true;
+        
+    }
 
     //allowing players to buy potion
     public static void buyPotion(Character currentchar){
@@ -147,6 +173,7 @@ public class PlayQuestOfLegends extends Play{
                 }
             }
         }
+
     //allowing players to buy weapon
     public static void buyWeapon(Character currentchar){
         MainMarket market= playingboard.getMarket();
@@ -258,151 +285,155 @@ public class PlayQuestOfLegends extends Play{
                     }
                 }
             }
-        //allowing player to sell armor
-        public static void sellArmor(Character currentchar){
-                String yesno; 
-                System.out.println(currentchar.getName()+" ,here is all the armors owned by this hero.");
-                currentchar.printArmorSale();
-                System.out.println("Enter a number from 0-" + (currentchar.returnArmorStorage().size())+" to sell: ");
+
+    //allowing player to sell armor
+    public static void sellArmor(Character currentchar){
+        String yesno; 
+        System.out.println(currentchar.getName()+" ,here is all the armors owned by this hero.");
+        currentchar.printArmorSale();
+        System.out.println("Enter a number from 0-" + (currentchar.returnArmorStorage().size())+" to sell: ");
+        scannername.nextLine();
+        int y= isInt();
+         while (valid_input2(y,currentchar.returnArmorStorage().size())== false){
+                System.out.println("Incorrect input! Please choose a correct number: ");
                 scannername.nextLine();
-                int y= isInt();
-                 while (valid_input2(y,currentchar.returnArmorStorage().size())== false){
-                        System.out.println("Incorrect input! Please choose a correct number: ");
-                        scannername.nextLine();
-                        y= isInt();
+                y= isInt();
+            }
+            if(y==(currentchar.returnArmorStorage().size())){
+                Marketplace(currentchar);
+            }
+            else if (y==(currentchar.returnArmorStorage().size())==false){
+                currentchar.sellArmor(currentchar.getArmor(y));
+                scannername.nextLine();
+                System.out.println("Would you like to sell another armor? (y/n):");
+                yesno = scannername.nextLine();
+                yesno=yesno.toLowerCase();
+                while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                    System.out.println("Invalid input! Enter (y/n):");
+                    yesno = scannername.nextLine();
+                    yesno=yesno.toLowerCase();
+                }
+                if(yesno.equals("y")){
+                    sellArmor(currentchar);
                     }
-                    if(y==(currentchar.returnArmorStorage().size())){
-                        Marketplace(currentchar);
-                    }
-                    else if (y==(currentchar.returnArmorStorage().size())==false){
-                        currentchar.sellArmor(currentchar.getArmor(y));
-                        scannername.nextLine();
-                        System.out.println("Would you like to sell another armor? (y/n):");
+                else if (yesno.equals("n")){
+                    Marketplace(currentchar);
+                }
+            }
+        }
+
+    //allowing player to sell potion
+    public static void sellPotion(Character currentchar){
+
+            String yesno; 
+            System.out.println(currentchar.getName()+" ,here is all the potions own by the hero.");
+            currentchar.printPotionSale();
+            System.out.println("Enter a number from 0-" + (currentchar.returnPotionStorage().size())+" to sell: ");
+            scannername.nextLine();
+            int y= isInt();
+             while (valid_input2(y,currentchar.returnPotionStorage().size())== false){
+                    System.out.println("Incorrect input! Please choose a correct number: ");
+                    scannername.nextLine();
+                    y= isInt();
+                }
+                if(y==(currentchar.returnPotionStorage().size())){
+                    Marketplace(currentchar);
+                }
+                else if (y==(currentchar.returnPotionStorage().size())==false){
+                    currentchar.sellPotion(currentchar.getPotion(y));
+                    scannername.nextLine();
+                    System.out.println("Would you like to sell another potion? (y/n):");
+                    yesno = scannername.nextLine();
+                    yesno=yesno.toLowerCase();
+                    while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                        System.out.println("Invalid input! Enter (y/n):");
                         yesno = scannername.nextLine();
                         yesno=yesno.toLowerCase();
-                        while(yesno.equals("y")==false&& yesno.equals("n")==false){
-                            System.out.println("Invalid input! Enter (y/n):");
-                            yesno = scannername.nextLine();
-                            yesno=yesno.toLowerCase();
+                    }
+                    if(yesno.equals("y")){
+                        sellPotion(currentchar);
                         }
-                        if(yesno.equals("y")){
-                            sellArmor(currentchar);
+                    else if (yesno.equals("n")){
+                        Marketplace(currentchar);
+                    }
+                }
+            }
+
+    //allowing player to sell weapon
+    public static void sellWeapon(Character currentchar){
+                
+        String yesno; 
+        System.out.println(currentchar.getName()+" ,here is all the weapons owned by the hero.");
+        currentchar.printWeaponSale();
+        System.out.println("Enter a number from 0-" + (currentchar.returnWeaponStorage().size())+" to sell: ");
+        scannername.nextLine();
+        int y= isInt();
+         while (valid_input2(y,currentchar.returnWeaponStorage().size())== false){
+                System.out.println("Incorrect input! Please choose a correct number: ");
+                scannername.nextLine();
+                y= isInt();
+            }
+            if(y==(currentchar.returnWeaponStorage().size())){
+                Marketplace(currentchar);
+            }
+            else if (y==(currentchar.returnWeaponStorage().size())==false){
+                currentchar.sellWeapon(currentchar.getWeapon(y));
+                scannername.nextLine();
+                System.out.println("Would you like to sell another weapon? (y/n):");
+                yesno = scannername.nextLine();
+                yesno=yesno.toLowerCase();
+                while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                    System.out.println("Invalid input! Enter (y/n):");
+                    yesno = scannername.nextLine();
+                    yesno=yesno.toLowerCase();
+                }
+                if(yesno.equals("y")){
+                    sellWeapon(currentchar);
+                    }
+                else if (yesno.equals("n")){
+                    Marketplace(currentchar);
+                }
+            }
+        }
+
+    //allowing player to sell spell
+    public static void sellSpell(Character currentchar){
+        String yesno; 
+        System.out.println(currentchar.getName()+" ,here is all the spells own by the hero.");
+
+        currentchar.printSpellSale();
+        System.out.println("Enter a number from 0-" + (currentchar.returnSpellStorage().size())+" to sell: ");
+        scannername.nextLine();
+        int y= isInt();
+
+        while (valid_input2(y,currentchar.returnSpellStorage().size())== false){
+            System.out.println("Incorrect input! Please choose a correct number: ");
+            scannername.nextLine();
+            y= isInt();
+                    }
+            if(y==(currentchar.returnSpellStorage().size())){
+                        Marketplace(currentchar);
+            }
+            else if (y==(currentchar.returnSpellStorage().size())==false){
+                currentchar.sellSpell(currentchar.getSpell(y));
+                scannername.nextLine();
+                System.out.println("Would you like to sell another spell? (y/n):");
+                yesno = scannername.nextLine();
+                yesno=yesno.toLowerCase();
+                while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                    System.out.println("Invalid input! Enter (y/n):");
+                    yesno = scannername.nextLine();
+                    yesno=yesno.toLowerCase();
+                        }
+                    if(yesno.equals("y")){
+                        sellSpell(currentchar);
                             }
-                        else if (yesno.equals("n")){
+                    else if (yesno.equals("n")){
                             Marketplace(currentchar);
                         }
                     }
                 }
-        
-            //allowing player to sell potion
-            public static void sellPotion(Character currentchar){
-            
-                    String yesno; 
-                    System.out.println(currentchar.getName()+" ,here is all the potions own by the hero.");
-                    currentchar.printPotionSale();
-                    System.out.println("Enter a number from 0-" + (currentchar.returnPotionStorage().size())+" to sell: ");
-                    scannername.nextLine();
-                    int y= isInt();
-                     while (valid_input2(y,currentchar.returnPotionStorage().size())== false){
-                            System.out.println("Incorrect input! Please choose a correct number: ");
-                            scannername.nextLine();
-                            y= isInt();
-                        }
-                        if(y==(currentchar.returnPotionStorage().size())){
-                            Marketplace(currentchar);
-                        }
-                        else if (y==(currentchar.returnPotionStorage().size())==false){
-                            currentchar.sellPotion(currentchar.getPotion(y));
-                            scannername.nextLine();
-                            System.out.println("Would you like to sell another potion? (y/n):");
-                            yesno = scannername.nextLine();
-                            yesno=yesno.toLowerCase();
-                            while(yesno.equals("y")==false&& yesno.equals("n")==false){
-                                System.out.println("Invalid input! Enter (y/n):");
-                                yesno = scannername.nextLine();
-                                yesno=yesno.toLowerCase();
-                            }
-                            if(yesno.equals("y")){
-                                sellPotion(currentchar);
-                                }
-                            else if (yesno.equals("n")){
-                                Marketplace(currentchar);
-                            }
-                        }
-                    }
-        //allowing player to sell weapon
-        public static void sellWeapon(Character currentchar){
-                    
-                    String yesno; 
-                    System.out.println(currentchar.getName()+" ,here is all the weapons owned by the hero.");
-                    currentchar.printWeaponSale();
-                    System.out.println("Enter a number from 0-" + (currentchar.returnWeaponStorage().size())+" to sell: ");
-                    scannername.nextLine();
-                    int y= isInt();
-                     while (valid_input2(y,currentchar.returnWeaponStorage().size())== false){
-                            System.out.println("Incorrect input! Please choose a correct number: ");
-                            scannername.nextLine();
-                            y= isInt();
-                        }
-                        if(y==(currentchar.returnWeaponStorage().size())){
-                            Marketplace(currentchar);
-                        }
-                        else if (y==(currentchar.returnWeaponStorage().size())==false){
-                            currentchar.sellWeapon(currentchar.getWeapon(y));
-                            scannername.nextLine();
-                            System.out.println("Would you like to sell another weapon? (y/n):");
-                            yesno = scannername.nextLine();
-                            yesno=yesno.toLowerCase();
-                            while(yesno.equals("y")==false&& yesno.equals("n")==false){
-                                System.out.println("Invalid input! Enter (y/n):");
-                                yesno = scannername.nextLine();
-                                yesno=yesno.toLowerCase();
-                            }
-                            if(yesno.equals("y")){
-                                sellWeapon(currentchar);
-                                }
-                            else if (yesno.equals("n")){
-                                Marketplace(currentchar);
-                            }
-                        }
-                    }
-    //allwoing player to sell spell
-    public static void sellSpell(Character currentchar){
-           
-            String yesno; 
-            System.out.println(currentchar.getName()+" ,here is all the spells own by the hero.");
 
-            currentchar.printSpellSale();
-            System.out.println("Enter a number from 0-" + (currentchar.returnSpellStorage().size())+" to sell: ");
-            scannername.nextLine();
-            int y= isInt();
-            while (valid_input2(y,currentchar.returnSpellStorage().size())== false){
-                    System.out.println("Incorrect input! Please choose a correct number: ");
-                    scannername.nextLine();
-                    y= isInt();
-                            }
-                    if(y==(currentchar.returnSpellStorage().size())){
-                                Marketplace(currentchar);
-                            }
-                    else if (y==(currentchar.returnSpellStorage().size())==false){
-                        currentchar.sellSpell(currentchar.getSpell(y));
-                        scannername.nextLine();
-                        System.out.println("Would you like to sell another spell? (y/n):");
-                        yesno = scannername.nextLine();
-                        yesno=yesno.toLowerCase();
-                        while(yesno.equals("y")==false&& yesno.equals("n")==false){
-                            System.out.println("Invalid input! Enter (y/n):");
-                            yesno = scannername.nextLine();
-                            yesno=yesno.toLowerCase();
-                                }
-                            if(yesno.equals("y")){
-                                sellSpell(currentchar);
-                                    }
-                            else if (yesno.equals("n")){
-                                    Marketplace(currentchar);
-                                }
-                            }
-                        }
     //players access different inventory to sell their item
     public static void sell(int x, Character currentchar){
         if(x==0){
@@ -482,8 +513,7 @@ public class PlayQuestOfLegends extends Play{
         else{
         buy(x,currentchar);
         }
-    }
-
+        }
         else if(x==1){
             System.out.println();
             System.out.println("0) Sell Armor ");
@@ -505,17 +535,17 @@ public class PlayQuestOfLegends extends Play{
             else{
             sell(x,currentchar);
         }
+        }
+        //if player quits they use up their move
+        else if(x==2){
+            return;
+        }
+        }
+        else{
+            System.out.println("You can only access market at the nexus! Choose another move!");
+            output_choice(currentchar);
+        }
     }
-    //if player quits they use up their move
-    else if(x==2){
-        return;
-    }
-    }
-    else{
-        System.out.println("You can only access market at the nexus! Choose another move!");
-        output_choice(currentchar);
-    }
-}
 
     
     //ask player which monster they want to attack 
@@ -557,7 +587,6 @@ public class PlayQuestOfLegends extends Play{
             if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
                 curr.row=(nextrow);
                 curr.col=(nextcol);
-                playingboard.printBoard();
                 return false;
             }
 
@@ -570,19 +599,13 @@ public class PlayQuestOfLegends extends Play{
         if(instruction.equals("w")){
             nextrow=currentrow;
             nextcol= currentcol-1;
-            System.out.println(curr.row+" "+curr.col);
-            System.out.println(nextrow+" "+ nextcol);
             // System.out.println((playingboard.movingtoempyspace(nextrow,nextcol,curr)));
             if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
                 curr.row=(nextrow);
                 curr.col=(nextcol);
-                playingboard.printBoard();
             return false;
             
             }
-           
-
-            
             else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){
                 System.out.println("Cannot move there!");
                 return true;
@@ -596,7 +619,6 @@ public class PlayQuestOfLegends extends Play{
             if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
                 curr.row=(nextrow);
                 curr.col=(nextcol);
-                playingboard.printBoard();
             return false;
             
             }
@@ -616,19 +638,16 @@ public class PlayQuestOfLegends extends Play{
                 if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
                     curr.row=(nextrow);
                     curr.col=(nextcol);
-                    playingboard.printBoard();
                    
                 return false;
                 
                 }
-               
-    
-                
                 else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){
                     System.out.println("Cannot move there!");
                     return true;
                 }
             }
+
         return true;
         }
 
@@ -672,14 +691,13 @@ public class PlayQuestOfLegends extends Play{
         }
         //if no hero in range, it moves forward one block
         else {
-          
            
             playingboard.movingtoempyspace(curr.row, curr.col+1,curr);
             curr.col=curr.col+1;
-            playingboard.printBoard();
         }
 
     }
+
 	public static void play(){
         // previously "actual_game"
         //ask the user for their instructions on what they would like to do next
@@ -698,22 +716,21 @@ public class PlayQuestOfLegends extends Play{
             //check if there is enemy ahead or beside 
                 System.out.print("Enter moves for "+ curr.getName()+ " : \n");
                 output_choice(curr);
-                if(playingboard.win()==true){
+                if(playingboard.win() == true){
                     won=true;
                     break;
                 }
+                playingboard.printBoard();
             }
             
             if(won== false){
                 for(int i = 0; i <monsters.size(); i++){
-                     System.out.println("here,");
                       Monster currmonster= monsters.get(i);
                       monster_move(currmonster);
-
+                }
             }
-            playingboard.printBoard();
-            }
-    }}
+        }
+    }
 
 
     //initialzie the starting postion of HERO
@@ -732,7 +749,6 @@ public class PlayQuestOfLegends extends Play{
 
     //set the postion of monster and heros on the board given the row and col
     public static void set_postion(Character_monster current,int row, int col){
-
         playingboard.move(row,col,current);
 
     }

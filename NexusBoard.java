@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.*;
+
 class NexusBoard extends Board {
 	//constructor which will set up board base on how many lane you would like	
 	public NexusBoard(int dimensionr,int dimensionc ) {
@@ -103,19 +104,15 @@ class NexusBoard extends Board {
 		if(current.return_character() instanceof Monster){
 			monster_inrange.add((Monster)current.return_character());
 		}
-	}
-
+		}
 		return monster_inrange;
-
-
-
 	}
 
 	//check if a hero/monster has reach the nexus
 	public boolean win(){
 		//herowin
 		for(int x=0;x<dimensionc;x++){
-			Tile monsternexus=board [dimensionr-1][x];
+			Tile monsternexus = board[dimensionr-1][x];
 			if(monsternexus.return_character() instanceof Character){
 				System.out.println("Hero won!");
 				return true ;
@@ -136,7 +133,7 @@ class NexusBoard extends Board {
 	}
 
 	//check if there is a hero in range
-	public ArrayList<Character>  hero_in_range(int r,int c){
+	public ArrayList<Character> hero_in_range(int r,int c){
 		int ahead_row= r;
 		int ahead_col= c-1;
 		ArrayList<Character> hero_inrange=new ArrayList<Character> ();
@@ -181,10 +178,8 @@ class NexusBoard extends Board {
 	}
 
 		return hero_inrange;
-
-
-
 	}
+
 	//move each hero/monser  to a position r c. 	
 	public void move(int r,int c, Character_monster curr){
      
@@ -207,8 +202,7 @@ class NexusBoard extends Board {
 	        String2="";
 	        String3="";
 	     for (int k = 0; k < dimensionc; k++) {
-	       
-	       
+	      
 	        Tile curr = board[k][i];
 	        if(curr.getDisplaytile()=='N'){
 	           String1+=" N - N - N ";
@@ -243,18 +237,93 @@ class NexusBoard extends Board {
 	            String1+=" I - I - I ";
 	            String2+=" | X X X | ";
 	            String3+=" I - I - I ";
-
-
 	        }
 	        
-	       
-
 	     } System.out.println(String1);
 	        System.out.println(String2);
 	        System.out.println(String3);
 	        System.out.println();
 	     System.out.println();
 	     
+	    }
+	}
+
+	public Tile getTileFromTeleport(int cell) {
+		// Get the tile associated with the cell picked on teleport
+        ArrayList<Tile> teleportTiles= new ArrayList<Tile>();
+
+        for (int i = 0; i < dimensionr; i++) {
+            for (int k = 0; k < dimensionc; k++) {
+            	Tile t = board[k][i];
+            	if (t.getDisplaytile() !='X') {
+            		teleportTiles.add(t);
+            	}
+            }
+        } return teleportTiles.get(cell);
+	}
+
+
+	public void printTeleportOptions(Character hero) {
+		// prints out the teleport options
+		String String1;
+	    String String2;
+	    String String3;
+	    String counter;
+	    int c = 0;
+	    for (int i = 0; i < dimensionr; i++) {
+	        String1="";
+	        String2="";
+	        String3="";
+	     for (int k = 0; k < dimensionc; k++) {
+	     	Tile curr = board[k][i];
+	       	if (c<10) {
+	       		counter = Integer.toString(c) + " ";
+	       	} else {
+	       		counter = Integer.toString(c);
+	       	}
+	      
+	        if(curr.getDisplaytile()=='N'){
+	           String1+=" N - N - N ";
+	           String2+=" |   "+counter+"  | ";
+	           String3+=" N - N - N ";
+	        }
+	        if(curr.getDisplaytile()=='B'){
+	             String1+=" B - B - B ";
+	             String2+=" |   "+counter+"  | ";
+	             String3+=" B - B - B ";
+
+	        }
+	        if(curr.getDisplaytile()=='C'){
+	            String1+=" C - C - C ";
+	             String2+=" |   "+counter+"  | ";
+	            String3+=" C - C - C " ;
+
+	        }
+	        if(curr.getDisplaytile()=='K'){
+
+	            String1+=" K - K - K ";
+	             String2+=" |   "+counter+"  | ";
+	            String3+=" K - K - K ";
+	        }
+	        if(curr.getDisplaytile()=='P'){
+
+	            String1+=" P - P - P ";
+	            String2+=" |   "+counter+"  | ";
+	            String3+=" P - P - P ";
+	        }
+	        if(curr.getDisplaytile()=='X'){
+	            String1+=" I - I - I ";
+	            String2+=" | X X X | ";
+	            String3+=" I - I - I ";
+	        }
+	       	if (curr.getDisplaytile() != 'X') {
+	       		c++;
+	       	}
+	     } System.out.println(String1);
+	        System.out.println(String2);
+	        System.out.println(String3);
+	        System.out.println();
+	     	System.out.println();
 	    }
 	}
 

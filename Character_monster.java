@@ -9,7 +9,7 @@ public class Character_monster {
     protected String pieceName="";
     protected int row;
     protected int col;
-
+ 
     public Character_monster(String name, int level){
         this.name=name;
         this.level= level;
