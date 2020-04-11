@@ -793,14 +793,13 @@ public class Play{
         
 
     
-    public static void monstermakesmove(Monster currentMonster,ArrayList<Character>current_heros){
+    public static void monstermakesmove(Monster currentMonster, ArrayList<Character>current_heros){
         Random rand = new Random();
         int val = rand.nextInt(current_heros.size());
         Character heroattacked= current_heros.get(val);
-        currentMonster.attackhero(heroattacked);
-        
-
+        currentMonster.attack(heroattacked);
     }
+
     public static void round(int counter,ArrayList<Character>current_heros,ArrayList<Monster> current_monsters){
         
 

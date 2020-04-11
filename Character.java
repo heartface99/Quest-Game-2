@@ -1,5 +1,6 @@
 import java.util.*;  
-public class Character extends Character_monster{
+
+public class Character extends Character_monster implements HeroFightAbility {
     /*
         Character is a class that represents all the heroes
     */

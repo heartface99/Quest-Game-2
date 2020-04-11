@@ -1,4 +1,7 @@
-public class Item{
+public class Item implements SellableBuyable {
+    /*
+        This is the base class for all items in which other items such as weapons, armor, potions all inherit from 
+    */
     private String name;
     private int cost;
     private int required_level;
@@ -8,6 +11,7 @@ public class Item{
         this.cost = c;
         this.required_level= rl;
     }
+
     public String getItemName(){
         return this.name;
     }
@@ -16,7 +20,5 @@ public class Item{
     } 
     public int getLevel(){
         return this.required_level;
-    }
-   
-    
+    } 
 }

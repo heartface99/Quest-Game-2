@@ -899,7 +899,7 @@ public static void usePotion(Character currentchar){
             Random rand = new Random();
             int val = rand.nextInt(hero_inrange.size());
             Character heroattacked=hero_inrange.get(val);
-            curr.attackhero(heroattacked);
+            curr.attack(heroattacked);
         }
         //if no hero in range, it moves forward one block
         else {

@@ -1,5 +1,6 @@
 import java.util.Random;
-public class Monster extends Character_monster{
+
+public class Monster extends Character_monster implements MonsterFightAbility{
     private int damage;
     private int dodge_chance;
     private int defense;
@@ -18,8 +19,6 @@ public class Monster extends Character_monster{
         this.defense_perm=defense;
         this.dodge_chance_perm=dodge;
         this.damage_perm=damage;
-
-
     }
 
     public void reset(){
@@ -122,7 +121,7 @@ public class Monster extends Character_monster{
     
     }
 
-    public void attackhero(Character hero){
+    public void attack(Character hero){
         System.out.println(name+" has attacked "+ hero.getName());
         hero.damagetaken(damage);
 
