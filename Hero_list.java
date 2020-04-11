@@ -72,7 +72,7 @@
         System.out.println("+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+");
         for(i = 0; i < herolist.size(); i++){
             current= herolist.get(i);
-            name= i+") "+current.getName();
+            name= i+") "+current.getName() +"("+ current.getPieceName()+")";
             name=pad(name,25);
             hp= Integer.toString(current.getHp())+"/" + Integer.toString(current.getTotalHp());
             hp=pad(hp,10);

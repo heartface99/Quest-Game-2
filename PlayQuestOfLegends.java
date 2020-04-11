@@ -72,13 +72,13 @@ public class PlayQuestOfLegends extends Play{
                 attack(curr);
                 return;
             case 3:
-                System.out.println("not implemented yet");
+                cast_spell(curr);
                 return;
             case 4:
-                inventory();
+                inventory(curr);
                 return;
             case 5:
-                System.out.println("not implemented yet");
+                return_base(curr);
                 return;
             case 6:
                 playingboard.printTeleportOptions(curr);
@@ -91,9 +91,11 @@ public class PlayQuestOfLegends extends Play{
                 return;
             case 7:
                 currentplayer.printlist();
-                return;
+
+                output_choice(curr);
             case 8:
                 possiblemoster.printMonster(monsters);
+                output_choice(curr);
                 return;
             case 9:
                 Marketplace(curr);
@@ -451,24 +453,7 @@ public class PlayQuestOfLegends extends Play{
 
 
     }
-    //players access different stores to buy their item
-    public static void buy(int x,Character currentchar){
-
-        if(x==0){ 
-            buyArmor(currentchar);
-            }
-
-        else if(x==1){
-            buyWeapon(currentchar);
-        }
-        else if(x==2){
-            buyPotion(currentchar);
-        }
-        else if(x==3){
-            buySpell(currentchar);
-        }
-        
-    }
+ 
 
 
     //acessing the market place only if the hero is at the market!
@@ -547,6 +532,185 @@ public class PlayQuestOfLegends extends Play{
         }
     }
 
+//allow user to equip weapons for a hero
+public static void EquipWeapon(Character currentchar){
+    String yesno; 
+    System.out.println(currentchar.getName()+" ,here is all the weapons owned by the hero.");
+    currentchar.printWeaponSale();
+    System.out.println("Enter a number from 0-" + (currentchar.returnWeaponStorage().size())+" to equip: ");
+    scannername.nextLine();
+    int y= isInt();
+     while (valid_input2(y,currentchar.returnWeaponStorage().size())== false){
+            System.out.println("Incorrect input! Please choose a correct number: ");
+            scannername.nextLine();
+            y= isInt();
+        }
+        if(y==(currentchar.returnWeaponStorage().size())){
+            inventory(currentchar);
+        }
+        else if (y==(currentchar.returnWeaponStorage().size())==false){
+            currentchar.equipWeapon(currentchar.getWeapon(y));
+            scannername.nextLine();
+            System.out.println("Would you like to equip a different weapon instead? (y/n):");
+            yesno = scannername.nextLine();
+            yesno=yesno.toLowerCase();
+            while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                System.out.println("Invalid input! Enter (y/n):");
+                yesno = scannername.nextLine();
+                yesno=yesno.toLowerCase();
+            }
+            if(yesno.equals("y")){
+                EquipWeapon(currentchar);
+                }
+            else if (yesno.equals("n")){
+                inventory(currentchar);
+            }
+        }
+}
+
+//equip spell of a hero
+public static void EquipSpell(Character currentchar){
+    String yesno; 
+    System.out.println(currentchar.getName()+" ,here is all the spells own by the hero.");
+
+    currentchar.printSpellSale();
+    System.out.println("Enter a number from 0-" + (currentchar.returnSpellStorage().size())+" to equip: ");
+    scannername.nextLine();
+    int y= isInt();
+    while (valid_input2(y,currentchar.returnSpellStorage().size())== false){
+            System.out.println("Incorrect input! Please choose a correct number: ");
+            scannername.nextLine();
+            y= isInt();
+                    }
+            if(y==(currentchar.returnSpellStorage().size())){
+                        inventory(currentchar);
+                    }
+            else if (y==(currentchar.returnSpellStorage().size())==false){
+                currentchar.equipSpell(currentchar.getSpell(y));
+                scannername.nextLine();
+                System.out.println("Would you like to equip another spell instead? (y/n):");
+                yesno = scannername.nextLine();
+                yesno=yesno.toLowerCase();
+                while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                    System.out.println("Invalid input! Enter (y/n):");
+                    yesno = scannername.nextLine();
+                    yesno=yesno.toLowerCase();
+                        }
+                    if(yesno.equals("y")){
+                        EquipSpell(currentchar);
+                            }
+                    else if (yesno.equals("n")){
+                            inventory(currentchar);
+                        }
+                    }
+                }
+
+//equip armor for a hero
+public static void EquipArmor(Character currentchar){
+    String yesno; 
+    System.out.println(currentchar.getName()+" ,here is all the armors owned by this hero.");
+    currentchar.printArmorSale();
+    System.out.println("Enter a number from 0-" + (currentchar.returnArmorStorage().size())+" to equip: ");
+    scannername.nextLine();
+    int y= isInt();
+     while (valid_input2(y,currentchar.returnArmorStorage().size())== false){
+            System.out.println("Incorrect input! Please choose a correct number: ");
+            scannername.nextLine();
+            y= isInt();
+        }
+        if(y==(currentchar.returnArmorStorage().size())){
+            inventory(currentchar);
+        }
+        else if (y==(currentchar.returnArmorStorage().size())==false){
+            currentchar.equipArmor(currentchar.getArmor(y));
+            scannername.nextLine();
+            System.out.println("Would you like to equip a different armor instead? (y/n):");
+            yesno = scannername.nextLine();
+            yesno=yesno.toLowerCase();
+            while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                System.out.println("Invalid input! Enter (y/n):");
+                yesno = scannername.nextLine();
+                yesno=yesno.toLowerCase();
+            }
+            if(yesno.equals("y")){
+                EquipArmor(currentchar);
+                }
+            else if (yesno.equals("n")){
+                inventory(currentchar);
+            }
+        }
+}
+
+
+//allow a hero to use potion
+public static void usePotion(Character currentchar){
+    String yesno; 
+    System.out.println(currentchar.getName()+" ,here is all the potions own by the hero.");
+    currentchar.printPotionSale();
+    System.out.println("Enter a number from 0-" + (currentchar.returnPotionStorage().size())+" to use: ");
+    scannername.nextLine();
+    int y= isInt();
+     while (valid_input2(y,currentchar.returnPotionStorage().size())== false){
+            System.out.println("Incorrect input! Please choose a correct number: ");
+            scannername.nextLine();
+            y= isInt();
+        }
+        if(y==(currentchar.returnPotionStorage().size())){
+            inventory(currentchar);
+        }
+        else if (y==(currentchar.returnPotionStorage().size())==false){
+            currentchar.usePotion(currentchar.getPotion(y));
+            scannername.nextLine();
+            System.out.println("Would you like to use another potion? (y/n):");
+            yesno = scannername.nextLine();
+            yesno=yesno.toLowerCase();
+            while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                System.out.println("Invalid input! Enter (y/n):");
+                yesno = scannername.nextLine();
+                yesno=yesno.toLowerCase();
+            }
+            if(yesno.equals("y")){
+                usePotion(currentchar);
+                }
+            else if (yesno.equals("n")){
+               inventory(currentchar);
+            }
+        }
+    }
+    
+
+
+//access the inventory of the character 
+    public static void inventory(Character currentchar){
+        System.out.println(currentchar.getName()+ " can now access the inventory.");
+        System.out.println("What operations to perform?");
+        System.out.println("0) Change Armor");
+        System.out.println("1) Change Weapon");
+        System.out.println("2) Use Potion");
+        System.out.println("3) Change Spell");
+        System.out.println("4) Unequip current Armor");
+        System.out.println("5) Unequip current Weapon");
+        System.out.println("6) Unequip current Spell");
+        System.out.println("7) Quit");
+        System.out.println("Enter a number from 0-7: ");
+       
+        int x;
+        x=isInt();
+        while (valid_input2(x,7)== false){
+            System.out.println("Incorrect input! Please choose a correct number: ");
+            scannername.nextLine();
+            x= isInt();
+        }
+        if (x== 7){
+            scannername.nextLine();
+            return;
+            // actual_game();
+        }
+        else{
+            Equip(x,currentchar);
+        }
+    }
+
     
     //ask player which monster they want to attack 
     public static void attack(Character curr){
@@ -573,6 +737,33 @@ public class PlayQuestOfLegends extends Play{
             output_choice(curr);
         }
     }
+
+     //ask player which monster they want to cast a spell on
+     public static void cast_spell (Character curr){
+        ArrayList <Monster> monster_inrange= new ArrayList <Monster> ();
+        monster_inrange= playingboard.monster_in_range(curr.row,curr.col);
+        if(monster_inrange.size() >0){
+            System.out.println("Which enemey do you want to target?");
+      
+            possiblemoster.printMonster(monster_inrange);
+            
+            int x= isInt();
+            scannername.nextLine();
+            while (valid_input2(x,monster_inrange.size()-1)== false){
+                System.out.println("Incorrect input! Please choose a correct number: ");
+                // scannername.nextLine();
+                x= isInt();
+            }
+            Monster choosenmonster = monsters.get(x);
+            curr.magicattack(choosenmonster);
+
+        }
+        else{
+            System.out.println("There is no monster to attack! Please choose a different move!");
+            output_choice(curr);
+        }
+    }
+    //moves the player by w,a,s,d and check if that move is viable.
 
     public static boolean makeMove(String instruction, Character curr){
         // makes the move on the board according to the instructions and the current monster
@@ -650,10 +841,31 @@ public class PlayQuestOfLegends extends Play{
 
         return true;
         }
+    
+    //return the player to base(base on their lane). 
+    public static void return_base(Character curr){
+        int base_row = curr.row;
+        int base_col = 7;
+
+        if(playingboard.movingtoempyspace(base_row,base_col,curr)== "OK"){
+            curr.row=(base_row);
+            curr.col=(base_col);
+            playingboard.printBoard();
+            return;
+
+        }
+        else{
+            System.out.println("There is someone at base already!");
+            output_choice(curr);
+        }
+
+
+    }
 
     //output the move a player can choose
     public static void output_choice(Character curr){
         int x;
+        System.out.println("Enter moves for "+ curr.getName()+ "("+curr.getPieceName()+")" +" : ");
         System.out.println("1) Move");
         System.out.println("2) Attack");
         System.out.println("3) Cast spell");
@@ -714,7 +926,7 @@ public class PlayQuestOfLegends extends Play{
             //check what tile the hero is at.
                 celltype=playingboard.check_tile(row, col);
             //check if there is enemy ahead or beside 
-                System.out.print("Enter moves for "+ curr.getName()+ " : \n");
+
                 output_choice(curr);
                 if(playingboard.win() == true){
                     won=true;
