@@ -95,6 +95,7 @@
         System.out.println("+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+");
 
     }
+    // each hero gain 0.05 hp and 0.05 mana after battle. 
     public void recover(ArrayList<Character> list){
        
         for(int i=0;i<list.size();i++){
@@ -132,6 +133,7 @@
     }
 }
 
+//hero gain gold and exp if they win a battle 
     public  void win(ArrayList<Character> list){
         System.out.println("You have won the battle");
         for(int i=0;i<list.size();i++){
@@ -154,7 +156,26 @@
             
         }
     }
+//only affects one character.
+    public void win_single(Character curr){
+        curr.gainMoney(150);
+        curr.gainedExp(2);
+     
 
+        if (curr instanceof Paladin) {
+            Paladin curclass= (Paladin) curr;
+           curr.levelUp(curclass.getAgi_raito(),curclass.getStr_raito(),curclass.getDex_raito());
+        }
+        else if (curr instanceof Sorcerer) {
+            Sorcerer curclass= (Sorcerer) curr;
+            curr.levelUp(curclass.getAgi_raito(),curclass.getStr_raito(),curclass.getDex_raito());
+        }
+        else if (curr instanceof Warrior) {
+            Warrior curclass= (Warrior) curr;
+            curr.levelUp(curclass.getAgi_raito(),curclass.getStr_raito(),curclass.getDex_raito());
+        }
+
+    }
 
     public static void main (String[] args){
         Hero_list a= new Hero_list();

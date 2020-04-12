@@ -13,7 +13,9 @@ public class Character extends Character_monster implements HeroFightAbility {
     private int temp_strength=0;
     private int temp_agility=0;
     private int temp_dexterity=0;
-
+    private int tile_dex=0;
+    private int tile_agi=0;
+    private int tile_str=0;
     private int starting_money;
     private int starting_experience;
     private String whatclass;
@@ -49,14 +51,24 @@ public class Character extends Character_monster implements HeroFightAbility {
     }
 
     /* The following functions are getters for hero stats*/
+    public int getstr_only(){
+        return this.strength;
+    }
+    public int getagi_only(){
+        return this.agility;
+
+    }
+    public int getdex_only(){
+        return this.dexterity;
+    }
     public int getStr(){
-        return this.strength+this.temp_strength;
+        return this.strength+this.temp_strength+this.tile_str;
     }
     public int getAgi(){
-        return this.agility+this.temp_agility;
+        return this.agility+this.temp_agility+this.tile_agi;
     }
     public int getDex(){
-        return this.dexterity+this.temp_dexterity;
+        return this.dexterity+this.temp_dexterity+this.tile_dex;
     }
     public int getTotalHp(){
         return this.totalhp;
@@ -126,6 +138,19 @@ public class Character extends Character_monster implements HeroFightAbility {
     }
     /*end of getters*/
 
+    //add the tile boost
+    public void tile_add(int str, int agi, int dex){
+        tile_agi+= agi;
+        tile_str+= str;
+        tile_dex+= dex;
+
+    }
+    //reset the tile boost
+    public void reset_tile(){
+        tile_agi=0;
+        tile_str=0;
+        tile_dex=0;
+    }
     public void resettemp(){
         temp_strength=0;
         temp_agility=0;
@@ -474,10 +499,10 @@ public class Character extends Character_monster implements HeroFightAbility {
         // A regular attack on a monster
         int damagedeal;
         if(char_weapon==null){
-        damagedeal=(int)((temp_strength+strength) *0.05);
+        damagedeal=(int)((temp_strength+strength+tile_str) *0.05);
         }
         else{
-            damagedeal= (int)(temp_strength+ strength+char_weapon.getDam()*0.05);
+            damagedeal= (int)(temp_strength+ strength+tile_str+char_weapon.getDam()*0.05);
         }
         System.out.println(name+" attacked "+target.getname() );
         target.damagetaken(damagedeal);
@@ -492,7 +517,7 @@ public class Character extends Character_monster implements HeroFightAbility {
         }
         else{
             mana=mana-char_spell.getMana();
-            damagedeal= (int)( char_spell.getDam() +((dexterity+temp_dexterity)/10000)*char_spell.getDam());
+            damagedeal= (int)( char_spell.getDam() +((dexterity+temp_dexterity+tile_dex)/10000)*char_spell.getDam());
             System.out.println(name+" casted "+ char_spell.getItemName()+" on "+target.getname() );
             target.magicdamagetaken(damagedeal,this.char_spell);
         }
@@ -503,7 +528,7 @@ public class Character extends Character_monster implements HeroFightAbility {
         int hpnow;
         Random rand = new Random();
         int val = rand.nextInt(100);
-        if (val>(agility*0.02)){
+        if (val>((agility+temp_dexterity+tile_dex)*0.02)){
 
             if(char_armor==null==false){
             damage= (damage-char_armor.getDamageRed());

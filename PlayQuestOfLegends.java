@@ -70,9 +70,11 @@ public class PlayQuestOfLegends extends Play{
                 return;
             case 2:
                 attack(curr);
+                curr.resettemp();
                 return;
             case 3:
                 cast_spell(curr);
+                curr.resettemp();
                 return;
             case 4:
                 inventory(curr);
@@ -731,6 +733,17 @@ public static void usePotion(Character currentchar){
             Monster choosenmonster = monsters.get(x);
             curr.attack(choosenmonster);
 
+            //remove hero from board when its dead
+
+            if(choosenmonster.get_hp()<= 0){
+                monsters.remove(choosenmonster);
+                playingboard.remove_piece(choosenmonster.row,choosenmonster.col);
+                possiblehero.win_single(curr);
+                possiblemoster.init_Monster();
+                return;
+
+            }
+
         }
         else{
             System.out.println("There is no monster to attack! Please choose a different move!");
@@ -756,6 +769,14 @@ public static void usePotion(Character currentchar){
             }
             Monster choosenmonster = monsters.get(x);
             curr.magicattack(choosenmonster);
+            if(choosenmonster.get_hp()<= 0){
+                monsters.remove(choosenmonster);
+                playingboard.remove_piece(choosenmonster.row,choosenmonster.col);
+                possiblehero.win_single(curr);
+                possiblemoster.init_Monster();
+                return;
+
+            }
 
         }
         else{
@@ -850,7 +871,7 @@ public static void usePotion(Character currentchar){
         if(playingboard.movingtoempyspace(base_row,base_col,curr)== "OK"){
             curr.row=(base_row);
             curr.col=(base_col);
-            playingboard.printBoard();
+            
             return;
 
         }
@@ -893,20 +914,44 @@ public static void usePotion(Character currentchar){
         //monster will attack if there is a hero in range
     
         ArrayList<Character> hero_inrange= new ArrayList<Character>();
+        Character heroattacked;
         hero_inrange=playingboard.hero_in_range(curr.row,curr.col);
         if(hero_inrange.size()>0){
         
             Random rand = new Random();
             int val = rand.nextInt(hero_inrange.size());
-            Character heroattacked=hero_inrange.get(val);
+            heroattacked=hero_inrange.get(val);
             curr.attack(heroattacked);
+        
+        //if hero is dead, he is reset to the base
+        if(heroattacked.getHp()<= 0){
+            heroattacked.resettemp();
+            return_base(heroattacked);
         }
+    }
         //if no hero in range, it moves forward one block
         else {
            
             playingboard.movingtoempyspace(curr.row, curr.col+1,curr);
             curr.col=curr.col+1;
         }
+
+    }
+    //give boost to character base on the tile
+    public static void check_tile(Character curr){
+        //cave increase agi by 10%
+        if(playingboard.check_tile(curr.row,curr.col)=='C'){
+            curr.tile_add(0,((int)0.10*curr.getagi_only()),0);
+        }
+         //bush increase dex by 10%
+         if(playingboard.check_tile(curr.row,curr.col)=='B'){
+            curr.tile_add(0,0,((int)0.10*curr.getdex_only()));
+        }
+        //kulou increase str by 10%
+        if(playingboard.check_tile(curr.row,curr.col)=='K'){
+            curr.tile_add(((int)0.10*curr.getstr_only()),0,0);
+        }
+
 
     }
 
@@ -917,30 +962,37 @@ public static void usePotion(Character currentchar){
         int count = 1;
         int x;
         boolean won=false;
+        int counter=0;
         while(playingboard.win()== false){
+            System.out.println("Round "+ counter);
             for(int i = 0; i <heroes.size(); i++){
               Character curr= heroes.get(i);
-                int row= curr.row;
-                int col= curr.col;
-            
-            //check what tile the hero is at.
-                celltype=playingboard.check_tile(row, col);
-            //check if there is enemy ahead or beside 
+                //clear tile boost and update it 
+                curr.reset_tile();
+                check_tile(curr);
 
                 output_choice(curr);
+                //clear tile boost and update it 
+                curr.reset_tile();
+                check_tile(curr);
                 if(playingboard.win() == true){
                     won=true;
                     break;
                 }
                 playingboard.printBoard();
             }
+
             
             if(won== false){
                 for(int i = 0; i <monsters.size(); i++){
                       Monster currmonster= monsters.get(i);
                       monster_move(currmonster);
                 }
+                playingboard.printBoard();
             }
+            //recovers the heros after a round
+            possiblehero.recover(heroes);
+            counter++;
         }
     }
 

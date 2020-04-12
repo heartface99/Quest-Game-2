@@ -10,6 +10,7 @@ public Monsterlist(){
 }
 
 public void init_Monster(){
+    monsters.clear();
     Monster Desghidorrah=new Monster("Desghidorrah",3,300,400,35,"Dragon");
     Monster Chrysophylax=new Monster("Chrysophylax",2,200,500,20,"Dragon");
     Monster BunsenBurner=new Monster("BunsenBurner",4,400,500,45,"Dragon");

@@ -135,7 +135,7 @@ class NexusBoard extends Board {
 	//check if there is a hero in range
 	public ArrayList<Character> hero_in_range(int r,int c){
 		int ahead_row= r;
-		int ahead_col= c-1;
+		int ahead_col= c+1;
 		ArrayList<Character> hero_inrange=new ArrayList<Character> ();
 		//check if the row is in dimentison
 		
@@ -350,6 +350,13 @@ class NexusBoard extends Board {
 	    return "OK";
 	    }
 	   
+	}
+
+	//remove monster/character from board
+	public void remove_piece(int row,int col){
+		Tile previous = board[row][col];
+		previous.reset_characterpiece();
+
 	}
 
 	public static void main(String[] args){	
