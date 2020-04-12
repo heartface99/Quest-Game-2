@@ -64,6 +64,7 @@ public class PlayQuestOfLegends extends Play{
                 while(loop){
                     System.out.println("Make a move(w,s,a,d): ");
                     String x= scannername.nextLine();
+                    x=x.toLowerCase();
                     String instruction = valid_move(x);
                     loop = makeMove(x,curr);
                 }
@@ -142,7 +143,7 @@ public class PlayQuestOfLegends extends Play{
     }
 
     //allowing players to buy potion
-    public static void buyPotion(Character currentchar){
+    public static void buyPotion1(Character currentchar){
         MainMarket market= playingboard.getMarket();
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the potions sold in the shop.Some potions are only for temporary effect and will effect will be gone after battle.");
@@ -170,7 +171,7 @@ public class PlayQuestOfLegends extends Play{
                     yesno=yesno.toLowerCase();
                 }
                 if(yesno.equals("y")){
-                    buyPotion(currentchar);
+                    buyPotion1(currentchar);
                     }
                 else if (yesno.equals("n")){
                     Marketplace(currentchar);
@@ -179,7 +180,7 @@ public class PlayQuestOfLegends extends Play{
         }
 
     //allowing players to buy weapon
-    public static void buyWeapon(Character currentchar){
+    public static void buyWeapon1(Character currentchar){
         MainMarket market= playingboard.getMarket();
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the weapons sold in the shop.");
@@ -207,17 +208,19 @@ public class PlayQuestOfLegends extends Play{
                     yesno=yesno.toLowerCase();
                 }
                 if(yesno.equals("y")){
-                    buyWeapon(currentchar);
+                    buyWeapon1(currentchar);
                     }
                 else if (yesno.equals("n")){
+                    System.out.println("here");
                     Marketplace(currentchar);
                 }
             }
         }
 
 
+
     //allowing players to buy armor
-    public static void buyArmor(Character currentchar){
+    public static void buyArmor1(Character currentchar){
         MainMarket market= playingboard.getMarket();
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the armors sold in the shop.");
@@ -245,7 +248,7 @@ public class PlayQuestOfLegends extends Play{
                     yesno=yesno.toLowerCase();
                 }
                 if(yesno.equals("y")){
-                    buyArmor(currentchar);
+                    buyArmor1(currentchar);
                     }
                 else if (yesno.equals("n")){
                     Marketplace(currentchar);
@@ -253,7 +256,7 @@ public class PlayQuestOfLegends extends Play{
             }
         }
         //allowing player to buy spell
-        public static void buySpell(Character currentchar){
+        public static void buySpell1(Character currentchar){
             MainMarket market= playingboard.getMarket();
             String yesno; 
             System.out.println(currentchar.getName()+" ,here is all the spells sold in the shop.");
@@ -282,7 +285,7 @@ public class PlayQuestOfLegends extends Play{
                         yesno=yesno.toLowerCase();
                     }
                     if(yesno.equals("y")){
-                        buySpell(currentchar);
+                        buySpell1(currentchar);
                         }
                     else if (yesno.equals("n")){
                         Marketplace(currentchar);
@@ -291,7 +294,7 @@ public class PlayQuestOfLegends extends Play{
             }
 
     //allowing player to sell armor
-    public static void sellArmor(Character currentchar){
+    public static void sellArmor1(Character currentchar){
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the armors owned by this hero.");
         currentchar.printArmorSale();
@@ -318,7 +321,7 @@ public class PlayQuestOfLegends extends Play{
                     yesno=yesno.toLowerCase();
                 }
                 if(yesno.equals("y")){
-                    sellArmor(currentchar);
+                    sellArmor1(currentchar);
                     }
                 else if (yesno.equals("n")){
                     Marketplace(currentchar);
@@ -327,7 +330,7 @@ public class PlayQuestOfLegends extends Play{
         }
 
     //allowing player to sell potion
-    public static void sellPotion(Character currentchar){
+    public static void sellPotion1(Character currentchar){
 
             String yesno; 
             System.out.println(currentchar.getName()+" ,here is all the potions own by the hero.");
@@ -355,7 +358,7 @@ public class PlayQuestOfLegends extends Play{
                         yesno=yesno.toLowerCase();
                     }
                     if(yesno.equals("y")){
-                        sellPotion(currentchar);
+                        sellPotion1(currentchar);
                         }
                     else if (yesno.equals("n")){
                         Marketplace(currentchar);
@@ -364,7 +367,7 @@ public class PlayQuestOfLegends extends Play{
             }
 
     //allowing player to sell weapon
-    public static void sellWeapon(Character currentchar){
+    public static void sellWeapon1(Character currentchar){
                 
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the weapons owned by the hero.");
@@ -392,7 +395,7 @@ public class PlayQuestOfLegends extends Play{
                     yesno=yesno.toLowerCase();
                 }
                 if(yesno.equals("y")){
-                    sellWeapon(currentchar);
+                    sellWeapon1(currentchar);
                     }
                 else if (yesno.equals("n")){
                     Marketplace(currentchar);
@@ -401,7 +404,7 @@ public class PlayQuestOfLegends extends Play{
         }
 
     //allowing player to sell spell
-    public static void sellSpell(Character currentchar){
+    public static void sellSpell1(Character currentchar){
         String yesno; 
         System.out.println(currentchar.getName()+" ,here is all the spells own by the hero.");
 
@@ -430,7 +433,7 @@ public class PlayQuestOfLegends extends Play{
                     yesno=yesno.toLowerCase();
                         }
                     if(yesno.equals("y")){
-                        sellSpell(currentchar);
+                        sellSpell1(currentchar);
                             }
                     else if (yesno.equals("n")){
                             Marketplace(currentchar);
@@ -438,22 +441,73 @@ public class PlayQuestOfLegends extends Play{
                     }
                 }
 
-    //players access different inventory to sell their item
-    public static void sell(int x, Character currentchar){
-        if(x==0){
-            sellArmor(currentchar);
-        }
+    //players access the buy function 
+    public static void buy1(int x,Character currentchar){
+
+        if(x==0){ 
+            buyArmor1(currentchar);
+            }
+
         else if(x==1){
-            sellWeapon(currentchar);
+            buyWeapon1(currentchar);
         }
-        else if (x==2){
-            sellPotion(currentchar);
+        else if(x==2){
+            buyPotion1(currentchar);
         }
         else if(x==3){
-            sellSpell(currentchar);
+            buySpell1(currentchar);
+        }
+        
+    }
+
+    //players access different inventory to sell their item
+    public static void sell1(int x, Character currentchar){
+        if(x==0){
+            sellArmor1(currentchar);
+        }
+        else if(x==1){
+            sellWeapon1(currentchar);
+        }
+        else if (x==2){
+            sellPotion1(currentchar);
+        }
+        else if(x==3){
+            sellSpell1(currentchar);
         }
 
 
+    }
+    //calls equiping method
+    public static void Equip1(int x,Character currentchar){
+        if (x==0){
+            EquipArmor1(currentchar);
+
+        }
+        else if(x==1){
+            EquipWeapon1(currentchar);
+
+        }
+        else if(x==2){
+            usePotion1(currentchar);
+        }
+        else if (x==3){
+            EquipSpell1(currentchar);
+        }
+
+        else if(x==4){
+            
+            currentchar.unequipArmor();
+            inventory(currentchar);
+            
+        }
+        else if (x==5){
+            currentchar.unequipWeapon();
+            inventory(currentchar);
+        }
+        else if(x==6){
+            currentchar.unequipSpell();
+            inventory(currentchar );
+        }
     }
  
 
@@ -498,7 +552,7 @@ public class PlayQuestOfLegends extends Play{
             Marketplace(currentchar);
         }
         else{
-        buy(x,currentchar);
+        buy1(x,currentchar);
         }
         }
         else if(x==1){
@@ -520,7 +574,7 @@ public class PlayQuestOfLegends extends Play{
                output_choice(currentchar);;
             }
             else{
-            sell(x,currentchar);
+            sell1(x,currentchar);
         }
         }
         //if player quits they use up their move
@@ -535,7 +589,7 @@ public class PlayQuestOfLegends extends Play{
     }
 
 //allow user to equip weapons for a hero
-public static void EquipWeapon(Character currentchar){
+public static void EquipWeapon1(Character currentchar){
     String yesno; 
     System.out.println(currentchar.getName()+" ,here is all the weapons owned by the hero.");
     currentchar.printWeaponSale();
@@ -562,7 +616,7 @@ public static void EquipWeapon(Character currentchar){
                 yesno=yesno.toLowerCase();
             }
             if(yesno.equals("y")){
-                EquipWeapon(currentchar);
+                EquipWeapon1(currentchar);
                 }
             else if (yesno.equals("n")){
                 inventory(currentchar);
@@ -571,7 +625,7 @@ public static void EquipWeapon(Character currentchar){
 }
 
 //equip spell of a hero
-public static void EquipSpell(Character currentchar){
+public static void EquipSpell1(Character currentchar){
     String yesno; 
     System.out.println(currentchar.getName()+" ,here is all the spells own by the hero.");
 
@@ -599,7 +653,7 @@ public static void EquipSpell(Character currentchar){
                     yesno=yesno.toLowerCase();
                         }
                     if(yesno.equals("y")){
-                        EquipSpell(currentchar);
+                        EquipSpell1(currentchar);
                             }
                     else if (yesno.equals("n")){
                             inventory(currentchar);
@@ -608,7 +662,7 @@ public static void EquipSpell(Character currentchar){
                 }
 
 //equip armor for a hero
-public static void EquipArmor(Character currentchar){
+public static void EquipArmor1(Character currentchar){
     String yesno; 
     System.out.println(currentchar.getName()+" ,here is all the armors owned by this hero.");
     currentchar.printArmorSale();
@@ -635,7 +689,7 @@ public static void EquipArmor(Character currentchar){
                 yesno=yesno.toLowerCase();
             }
             if(yesno.equals("y")){
-                EquipArmor(currentchar);
+                EquipArmor1(currentchar);
                 }
             else if (yesno.equals("n")){
                 inventory(currentchar);
@@ -645,7 +699,7 @@ public static void EquipArmor(Character currentchar){
 
 
 //allow a hero to use potion
-public static void usePotion(Character currentchar){
+public static void usePotion1(Character currentchar){
     String yesno; 
     System.out.println(currentchar.getName()+" ,here is all the potions own by the hero.");
     currentchar.printPotionSale();
@@ -672,7 +726,7 @@ public static void usePotion(Character currentchar){
                 yesno=yesno.toLowerCase();
             }
             if(yesno.equals("y")){
-                usePotion(currentchar);
+                usePotion1(currentchar);
                 }
             else if (yesno.equals("n")){
                inventory(currentchar);
@@ -709,7 +763,7 @@ public static void usePotion(Character currentchar){
             // actual_game();
         }
         else{
-            Equip(x,currentchar);
+            Equip1(x,currentchar);
         }
     }
 
@@ -793,6 +847,8 @@ public static void usePotion(Character currentchar){
         int nextrow;
         int nextcol;
         if(instruction.equals("a")){
+            //check if there is a monster right by you, if there is you shall not pass unless 
+            if(playingboard.can_move_ahead(currentrow,currentcol)== true){
             nextrow=currentrow-1;
             nextcol= currentcol;
         
@@ -805,7 +861,13 @@ public static void usePotion(Character currentchar){
             else if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="X"){ 
                 System.out.println("Cannot move there!");
                 return true;
+
             }
+        }
+        else{
+            System.out.println("You must defeat the monster before moving ahead!");
+            output_choice(curr);
+        }
         }
 
         if(instruction.equals("w")){

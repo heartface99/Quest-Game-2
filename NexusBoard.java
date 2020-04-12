@@ -326,6 +326,40 @@ class NexusBoard extends Board {
 	     	System.out.println();
 	    }
 	}
+	//check if there is a monster right next to you, you cannot move ahead unless you defeat that monster.
+	public boolean can_move_ahead(int r, int c){
+		
+		int left_row= r-1;
+		int left_col = c;
+
+		if(left_row>=this.dimensionr || left_col>=this.dimensionc|| left_row<0 || left_col<0){
+	        
+	    } 
+	    else{
+		Tile current= board[left_row][left_col];
+		if(current.return_character() instanceof Monster){
+			return false;
+		}
+
+		}
+
+		int right_row= r+1;
+		int right_col= c;
+
+		if(right_row>=this.dimensionr || right_col>=this.dimensionc|| right_row<0 || right_col<0){
+	        
+	    } 
+	    else{
+		Tile current= board[right_row][right_col];
+		if(current.return_character() instanceof Monster){
+			return false;
+		}
+		
+	}return true;
+}
+
+		
+	
 
 	//checking if you are moving to an available space
 	public String movingtoempyspace(int row,int col,Character_monster curr){
