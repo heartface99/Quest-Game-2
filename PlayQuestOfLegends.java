@@ -1026,6 +1026,8 @@ public static void usePotion1(Character currentchar){
         boolean won=false;
         int counter=0;
         while(playingboard.win()== false){
+            System.out.println();
+            System.out.println();
             System.out.println("Round "+ counter);
             for(int i = 0; i <heroes.size(); i++){
               Character curr= heroes.get(i);

@@ -112,17 +112,21 @@ class NexusBoard extends Board {
 	public boolean win(){
 		//herowin
 		for(int x=0;x<dimensionr;x++){
-			Tile monsternexus = board[dimensionc-1][x];
+			Tile monsternexus =board[x][0];
+			monsternexus.get_characterpiece();
 			if(monsternexus.return_character() instanceof Character){
 				System.out.println("Hero won!");
-				return true ;
+				return true;
 			}
+			
 			else{
-				Tile heronexus= board[0][x];
-				if(monsternexus.return_character() instanceof Monster){
+			
+				Tile heronexus=board[x][dimensionc-1]; 
+				if(heronexus.return_character() instanceof Monster){
 					System.out.println("Monster won!");
 					return true;
-			}
+			
+		}
 
 		
 		}
