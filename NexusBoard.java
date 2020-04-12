@@ -186,7 +186,6 @@ class NexusBoard extends Board {
 
 	//move each hero/monser  to a position r c. 	
 	public void move(int r,int c, Character_monster curr){
-     
      Tile current = board[r][c];
      current.set_character_piece(curr);
 	}
@@ -389,6 +388,7 @@ class NexusBoard extends Board {
 	    }
 	   
 	}
+
 
 	//remove monster/character from board
 	public void remove_piece(int row,int col){

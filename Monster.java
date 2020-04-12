@@ -10,7 +10,7 @@ public class Monster extends Character_monster implements MonsterFightAbility{
     private int damage_perm;
 
 
-    public Monster(String name, int level, int damage,  int defense,int dodge,String type){
+    public Monster(String name, int level, int damage, int defense, int dodge,String type){
         super(name,level);
         this.damage= damage;
         this.defense= defense;

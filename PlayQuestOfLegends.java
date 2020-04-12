@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class PlayQuestOfLegends extends Play{
-	private static ArrayList<Character> heroes;
-    private static ArrayList<Monster> monsters;
+	private static ArrayList<Character> heroes = new ArrayList<Character>();
+    private static ArrayList<Monster> monsters = new ArrayList<Monster>();
     private static NexusBoard playingboard;
     protected static MainMarket market = new MainMarket();
 
@@ -45,9 +45,8 @@ public class PlayQuestOfLegends extends Play{
         scannername.nextLine();
         //set up the board, monster, and heros
         playingboard= new NexusBoard(8,8); 
-        monsters=possiblemoster.matchLevel(currentplayer.returnmaxlevel(),num_hero);
-        heroes= currentplayer.returnHerolist();
-        // initalizeMonsterPostion();
+        monsters.addAll(possiblemoster.matchLevel(currentplayer.returnmaxlevel(),num_hero));
+        heroes.addAll(currentplayer.returnHerolist());
         initalizeHeroPostion(8);
         initalizeMonsterPostion();
         playingboard.printBoard();
@@ -838,8 +837,8 @@ public static void usePotion1(Character currentchar){
             output_choice(curr);
         }
     }
-    //moves the player by w,a,s,d and check if that move is viable.
 
+    //moves the player by w,a,s,d and check if that move is viable.
     public static boolean makeMove(String instruction, Character curr){
         // makes the move on the board according to the instructions and the current monster
         int currentrow=curr.row;
@@ -1021,14 +1020,12 @@ public static void usePotion1(Character currentchar){
         // previously "actual_game"
         //ask the user for their instructions on what they would like to do next
         char celltype;
-        int count = 1;
         int x;
         boolean won=false;
         int counter=0;
+
         while(playingboard.win()== false){
-            System.out.println();
-            System.out.println();
-            System.out.println("Round "+ counter);
+            
             for(int i = 0; i <heroes.size(); i++){
               Character curr= heroes.get(i);
                 //clear tile boost and update it 
@@ -1046,13 +1043,19 @@ public static void usePotion1(Character currentchar){
                 playingboard.printBoard();
             }
 
-            
             if(won== false){
                 for(int i = 0; i <monsters.size(); i++){
                       Monster currmonster= monsters.get(i);
                       monster_move(currmonster);
                 }
-                playingboard.printBoard();
+                
+            }
+            if (counter == 7) {
+                // spawn new monsters
+                counter = 0;
+                ArrayList<Monster> newMonsters = possiblemoster.matchLevel(currentplayer.returnmaxlevel(), num_hero);
+                monsters.addAll(newMonsters);
+                respawnMonsters(newMonsters);
             }
             //recovers the heros after a round
             possiblehero.recover(heroes);
@@ -1076,17 +1079,17 @@ public static void usePotion1(Character currentchar){
 	}
 
     //set the postion of monster and heros on the board given the row and col
-    public static void set_postion(Character_monster current,int row, int col){
+    public static void set_postion(Character_monster current, int row, int col){
         playingboard.move(row,col,current);
-
     }
 
 	//intitlize the starting positon of Monster 
     public static void initalizeMonsterPostion(){
         int counter=0;
         int lane=0;
+        int start=0;
         Character_monster curr;
-        System.out.println(monsters.size());
+
         for(int i = 0; i <monsters.size(); i++){
           curr = monsters.get(i);
           curr.setpiecename("M"+ (i+1));
@@ -1096,4 +1099,18 @@ public static void usePotion1(Character currentchar){
           set_postion(curr, curr.row, curr.col);
     	}
 	}
+
+//intitlize the starting positon of Monster 
+    public static void respawnMonsters(ArrayList<Monster> newMonsters){
+        int r = 0;
+        Character_monster m;
+        for(int i=0; i<newMonsters.size(); i++){
+          m = newMonsters.get(i);
+          m.setpiecename("M"+ (monsters.size() - 2 + i));
+          m.setrow(r);
+          m.setcol(0);
+          set_postion(m, m.row, m.col);
+          r+=3;
+        }
+    }    
 }
