@@ -1,14 +1,17 @@
 import java.util.*;
 
-public class PlayQuestOfLegends extends Play{
+public class PlayQuestOfLegends extends Play {
+    /*
+        This class represents the logic of the Quest of legends game. It shares some qualities with the regular 
+        quest game, which is why it extends it.
+    */
 	private static ArrayList<Character> heroes = new ArrayList<Character>();
     private static ArrayList<Monster> monsters = new ArrayList<Monster>();
     private static NexusBoard playingboard;
     protected static MainMarket market = new MainMarket();
 
-    //introduction to set up game by choosing your heros. 
     public static void start(){
-        //previously introduction setup
+        //introduction to set up game by choosing your heros. 
         num_hero = 3;
         System.out.println("Welcome to the Quest of Legend.");
         System.out.println("In the middle of chaos, you were choosen to save the world.");

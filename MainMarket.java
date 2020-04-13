@@ -1,14 +1,16 @@
 import java.util.*;
 
 public class MainMarket{
+    /* 
+        Represents all items in the market that a hero can purchase
+    */
+
     private ArrayList<Weapon> weapon_store;
     private ArrayList<Armor> armor_store;
     private ArrayList<Spells> spell_store;
     private ArrayList<Potion> potion_store;
 
     public MainMarket(){
-        
-     
         weapon_store = new ArrayList<Weapon> ();
         armor_store= new ArrayList<Armor>();  
         potion_store= new ArrayList<Potion>();
@@ -19,6 +21,7 @@ public class MainMarket{
         this.int_spell();
     }
 
+    /*following functions are for initializing the various items of the market*/
     public void int_spell(){
         Spells Snow_Canon= new Spells ("Snow_Canon",500,2,650,250,"ice");
         Spells Ice_Blade= new Spells ("Ice_Blade",250,1,450,100,"ice");
@@ -92,8 +95,8 @@ public class MainMarket{
         this.armor_store.add(Full_Body_Armor);
         this.armor_store.add(Wizard_Shield);
         this.armor_store.add(Speed_Boots);
-
     }
+    /*end of initalizing*/
 
     public boolean add_weapon(Weapon x){
         if(weapon_store.contains(x)){
@@ -111,7 +114,6 @@ public class MainMarket{
             return false;
         }
         else{
-
             armor_store.add(x);
             return true;
         }
@@ -127,6 +129,7 @@ public class MainMarket{
         return input;
     }
 
+    /*The following functions are for printing different items in the market in the terminal for the player to see*/
     public void printPotion(){
         Potion current;
         String name;
@@ -244,6 +247,7 @@ public class MainMarket{
         System.out.println(i+")Quit");
         System.out.println("+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+");
     }
+    /*end of printers*/
     
     public ArrayList<Spells> returnSpellStore(){
         return this.spell_store;
@@ -254,7 +258,6 @@ public class MainMarket{
     public Spells getSpell(int x){
         return this.spell_store.get(x);
     }
-
     public Armor getArmor(int x){
         return this.armor_store.get(x);
     }

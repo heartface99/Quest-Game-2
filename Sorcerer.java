@@ -1,8 +1,10 @@
-public class Sorcerer extends Character{
+public class Sorcerer extends Character {
+    /* 
+        Represents a type of hero, sorcerer, which has more dexterity and agility
+    */
     private double str_ratio;
     private double dex_ratio;
     private double agi_ratio;
-    // private String whatclass;
 
     public Sorcerer (String n,int ma, int str, int agi, int dex, int sm, int sexp){
         super(n,ma,str,agi,dex,sm,sexp);

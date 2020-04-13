@@ -1,6 +1,6 @@
 public interface HeroFightAbility {
 	/*
-	Indicates/enforces the ability of items to be bought and sold (that the item is able to perform transactions)
+	 An interface that enforces the hero to have some fight-specific methods
 	*/
 	
 	void attack(Monster target);

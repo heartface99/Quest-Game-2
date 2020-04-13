@@ -1,6 +1,9 @@
 import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
-public class Spells extends Item{
+public class Spells extends Item {
+
+    /* This class represents a type of item, Spells, which allows the hero perform spells to attack the monster */
+
     private int damage;
     private int mana_cost;
     private String typeofskill;
@@ -15,7 +18,9 @@ public class Spells extends Item{
         this.typeofskill= typeofskill;
         seteffect();
     }
+
     public void seteffect(){
+        // depending on the type of spell, determines the type of attack it will have
         if(typeofskill.equals("ice")){
             damage_red= 0.9;
         }

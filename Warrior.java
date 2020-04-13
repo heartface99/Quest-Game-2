@@ -1,10 +1,12 @@
-public class Warrior extends Character{
-        private double str_ratio;
-        private double dex_ratio;
-        private double agi_ratio;
-        // private String whatclass;
+public class Warrior extends Character {
+    /* 
+        Represents a type of hero, warrior, which has more strength and agility
+    */
+    private double str_ratio;
+    private double dex_ratio;
+    private double agi_ratio;
 
-        public Warrior (String n,int ma, int str, int agi, int dex, int sm, int sexp){
+    public Warrior (String n,int ma, int str, int agi, int dex, int sm, int sexp){
         super(n,ma,str,agi,dex,sm,sexp);
         setclass("Warrior");
         str_ratio= 0.3;

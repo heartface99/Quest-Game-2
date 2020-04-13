@@ -2,10 +2,16 @@ import java.util.Random;
 import java.util.*;
 
 class NexusBoard extends Board {
+	/*
+		This class represents the board for the game quest of legends, which shares properties with the regular board
+		for quest.
+	*/
+
 	//constructor which will set up board base on how many lane you would like	
 	public NexusBoard(int dimensionr,int dimensionc ) {
 		super(dimensionr, dimensionc);
 	}
+
     public NexusBoard(int lane){	
         this((lane*2+lane-1),(lane*2+lane-1));	
     }
@@ -62,7 +68,7 @@ class NexusBoard extends Board {
 	}
 
 	//check if there is a monster in range
-	public ArrayList<Monster>  monster_in_range(int r,int c){
+	public ArrayList<Monster> monster_in_range(int r,int c){
 		int ahead_row= r;
 		int ahead_col= c-1;
 		ArrayList<Monster> monster_inrange=new ArrayList<Monster> ();

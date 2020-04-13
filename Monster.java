@@ -1,6 +1,9 @@
 import java.util.Random;
 
-public class Monster extends Character_monster implements MonsterFightAbility{
+public class Monster extends Character_monster implements MonsterFightAbility {
+    /*
+        Class that represents a monster character and has the ability to fight
+    */
     private int damage;
     private int dodge_chance;
     private int defense;
@@ -61,6 +64,7 @@ public class Monster extends Character_monster implements MonsterFightAbility{
     }
 
     public void damagetaken(int damage){
+        // calculates the damage that an attack has on the monster
         int hpnow;
         Random rand = new Random();
         int val = rand.nextInt(100);
