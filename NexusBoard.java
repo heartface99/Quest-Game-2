@@ -336,7 +336,7 @@ class NexusBoard extends Board {
 		int left_col = c;
 
 		if(left_row>=this.dimensionr || left_col>=this.dimensionc|| left_row<0 || left_col<0){
-	        
+			
 	    } 
 	    else{
 		Tile current= board[left_row][left_col];
@@ -350,7 +350,7 @@ class NexusBoard extends Board {
 		int right_col= c;
 
 		if(right_row>=this.dimensionr || right_col>=this.dimensionc|| right_row<0 || right_col<0){
-	        
+	      
 	    } 
 	    else{
 		Tile current= board[right_row][right_col];
@@ -358,7 +358,9 @@ class NexusBoard extends Board {
 			return false;
 		}
 		
-	}return true;
+	}
+	
+	return true;
 }
 
 		

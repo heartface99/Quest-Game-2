@@ -793,9 +793,11 @@ public static void usePotion1(Character currentchar){
                 playingboard.remove_piece(choosenmonster.row,choosenmonster.col);
                 possiblehero.win_single(curr);
                 possiblemoster.init_Monster();
-                return;
+                
 
             }
+            
+            
 
         }
         else{
@@ -847,7 +849,8 @@ public static void usePotion1(Character currentchar){
         int nextcol;
         if(instruction.equals("a")){
             //check if there is a monster right by you, if there is you shall not pass unless 
-            if(playingboard.can_move_ahead(currentrow,currentcol)== true){
+            
+          
             nextrow=currentrow-1;
             nextcol= currentcol;
         
@@ -863,15 +866,12 @@ public static void usePotion1(Character currentchar){
 
             }
         }
-        else{
-            System.out.println("You must defeat the monster before moving ahead!");
-            output_choice(curr);
-        }
-        }
-
+        
+        
         if(instruction.equals("w")){
             nextrow=currentrow;
             nextcol= currentcol-1;
+            if(playingboard.can_move_ahead(currentrow,currentcol)== true){
             // System.out.println((playingboard.movingtoempyspace(nextrow,nextcol,curr)));
             if(playingboard.movingtoempyspace(nextrow,nextcol,curr)=="OK"){
                 curr.row=(nextrow);
@@ -885,6 +885,15 @@ public static void usePotion1(Character currentchar){
             }
             
         }
+        else{
+            System.out.println("You must defeat the monster before moving ahead!");
+            output_choice(curr);
+            return false;
+        }
+        }
+
+        
+        
         if(instruction.equals("s")){
             nextrow=currentrow;
             nextcol= currentcol+1;
@@ -977,6 +986,7 @@ public static void usePotion1(Character currentchar){
         ArrayList<Character> hero_inrange= new ArrayList<Character>();
         Character heroattacked;
         hero_inrange=playingboard.hero_in_range(curr.row,curr.col);
+        System.out.println("current hero size is"+ hero_inrange.size());
         if(hero_inrange.size()>0){
         
             Random rand = new Random();
@@ -1048,6 +1058,7 @@ public static void usePotion1(Character currentchar){
                       Monster currmonster= monsters.get(i);
                       monster_move(currmonster);
                 }
+                playingboard.printBoard();
                 
             }
             if (counter == 7) {
