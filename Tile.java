@@ -26,6 +26,7 @@ public class Tile{
     }
 
     public String get_characterpiece(){
+        // used for printing the board 
         if(this.characterhere!= null){
         return this.characterhere.getPieceName();
         }

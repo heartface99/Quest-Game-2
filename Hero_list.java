@@ -1,6 +1,10 @@
  import java.util.*; 
- public class Hero_list{
-    
+
+ public class Hero_list {
+    /*
+        This class initializes all the different types of characters that the player can choose from
+    */
+
     private ArrayList<Character> herolist;
 
     public Hero_list(){
@@ -8,11 +12,13 @@
         initalize_paladin();
         initalize_warrior();
         initalize_sorcrer();
-
     }
+
     public ArrayList<Character> getlist(){
         return herolist;
     }
+    
+    // initalizing all the different
     public void initalize_paladin(){
         Paladin Solonor_Thelandira= new Paladin("Solonor_Thelandira",300,750,650,700,2500,7);
         Paladin Sehanine_Moonbow = new Paladin("Sehanine_Moonbow",300,750,700,700,2500,7);
@@ -95,6 +101,7 @@
         System.out.println("+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+");
 
     }
+
     // each hero gain 0.05 hp and 0.05 mana after battle. 
     public void recover(ArrayList<Character> list){
        
@@ -102,11 +109,7 @@
             Character current= list.get(i);
             current.gainHp((int)(current.getTotalHp()*0.05));
             current.gainMana((int)(current.getTotalMana()*0.05));
-
         }
-
-            
-
     }
 
     public ArrayList<Character> removenohp(ArrayList<Character> list, ArrayList<Character> deadcharacters){
@@ -117,23 +120,22 @@
                 deadcharacters.add(list.get(i));
                 list.remove(list.get(i));
             }
-    }
+        }
         return list;
-
     }
 
     public void reset(ArrayList<Character> list){
+        // revive the list of characters 
         for(int i=0;i<list.size();i++){
             Character curr= list.get(i);
            if(curr.getHp()<=0){
                curr.add_hp(curr.totalhp/2);
-            
             }
             curr.resettemp();
+        }
     }
-}
 
-//hero gain gold and exp if they win a battle 
+    //hero gain gold and exp if they win a battle 
     public  void win(ArrayList<Character> list){
         System.out.println("You have won the battle");
         for(int i=0;i<list.size();i++){
@@ -156,7 +158,8 @@
             
         }
     }
-//only affects one character.
+
+    //only affects one character.
     public void win_single(Character curr){
         curr.gainMoney(150);
         curr.gainedExp(2);

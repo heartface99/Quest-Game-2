@@ -1,4 +1,5 @@
-public class Potion extends Item{
+public class Potion extends Item {
+    /* This class represents a type of item, Potion, which allows the hero to increase its HP */
     int hp;
     int mana;
     int dex;

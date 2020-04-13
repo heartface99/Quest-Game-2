@@ -2,6 +2,7 @@ public class Character_monster {
     /*
     A class that respresents what a monster and a hero should all have 
     */
+    
     protected String name;
     protected int level;
     protected int hp;
@@ -41,16 +42,4 @@ public class Character_monster {
     public int getcol(){
         return col;
     }
-
-    // public int getTotalHp1(){
-    //     return this.totalhp;
-    // }
-    
-    // public String getName1(){
-    //     return this.name;
-    // }
-
-    // public int getHp1(){
-    //     return this.hp;
-    // }
 }

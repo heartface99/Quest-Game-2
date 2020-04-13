@@ -1,8 +1,10 @@
-public class Paladin extends Character{
+public class Paladin extends Character {
+    /*
+        A type of hero that has increased strength and dexterity
+    */
     private double str_ratio;
     private double dex_ratio;
     private double agi_ratio;
-    // private String whatclass;
 
     public Paladin(String n,  int ma, int str, int agi, int dex, int sm, int sexp){
         super(n,ma,str,agi,dex,sm,sexp);

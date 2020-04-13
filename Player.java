@@ -1,7 +1,7 @@
+import java.util.*; 
 
-import java.util.*;  
-//class for Player which have their name, their piece representation, postion and the list of hero that they hold.
 public class Player{
+    //class for Player which have their name, their piece representation, postion and the list of hero that they hold.
     private String name;
     private char player_representation;
     private ArrayList<Character> player_heroes;
@@ -15,6 +15,7 @@ public class Player{
         this.player_heroes= new ArrayList<Character>();
     
     }
+
     //getters and setters
     public int getRow(){
         return this.row;
