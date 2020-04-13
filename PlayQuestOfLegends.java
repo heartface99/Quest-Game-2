@@ -210,7 +210,6 @@ public class PlayQuestOfLegends extends Play{
                     buyWeapon1(currentchar);
                     }
                 else if (yesno.equals("n")){
-                    System.out.println("here");
                     Marketplace(currentchar);
                 }
             }
@@ -1061,9 +1060,8 @@ public static void usePotion1(Character currentchar){
                 playingboard.printBoard();
                 
             }
-            if (counter == 7) {
+            if (counter % 9==0) {
                 // spawn new monsters
-                counter = 0;
                 ArrayList<Monster> newMonsters = possiblemoster.matchLevel(currentplayer.returnmaxlevel(), num_hero);
                 monsters.addAll(newMonsters);
                 respawnMonsters(newMonsters);
