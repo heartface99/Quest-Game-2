@@ -1,4 +1,5 @@
  import java.util.*; 
+ // a class containing all the function of a list of possible hero, and functions u can do on them
  public class Hero_list{
     
     private ArrayList<Character> herolist;
@@ -45,7 +46,8 @@
         herolist.add(Segojan_Earthcaller);
         herolist.add(Aues_Sorrowin);
     }
-
+    
+//functions to pad the strings when we print them
     public String pad (String input,int num_extended){
         int counter;
         while(input.length()<num_extended){
@@ -55,7 +57,7 @@
         }
         return input;
     }
-    
+    //print the list of all possible heros
     public void printlist(){
         Character current;
         String name;
@@ -108,7 +110,7 @@
             
 
     }
-
+    //separate characters with no hp and from characters still alive
     public ArrayList<Character> removenohp(ArrayList<Character> list, ArrayList<Character> deadcharacters){
         for(int i=0;i<list.size();i++){
            
@@ -121,7 +123,7 @@
         return list;
 
     }
-
+//resets the state of the hero after a battle is done
     public void reset(ArrayList<Character> list){
         for(int i=0;i<list.size();i++){
             Character curr= list.get(i);

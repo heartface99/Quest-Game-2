@@ -26,6 +26,13 @@ public class PlayQuestOfLegends extends Play{
         System.out.println("Warriors are favored on the strength and the agility.");
         System.out.println("Sorcerers are favored on the dexterity and the agility.");
         System.out.println("Paladins are favored on the strength and the dexterity.");
+        setup();
+        
+    }
+
+    //set up the board and hero
+    public static void setup(){
+        currentplayer.reset_list();
         System.out.println("Here are the list of possible heros and their information! Remember you can choose at max " + num_hero + " hero(es)!");
         System.out.println();
         possiblehero.printlist();
@@ -52,7 +59,6 @@ public class PlayQuestOfLegends extends Play{
         playingboard.printBoard();
         play();
     }
-
 
     //after user choose what to do next, you elaborate on what their choices can be
     public static void chosenMove(Character curr, int i){
@@ -1024,6 +1030,27 @@ public static void usePotion1(Character currentchar){
 
 
     }
+    //resets the playing board and deletes all the current heros and monsters
+    public static void resetboard(){
+        //remove piece from the board 
+        Character_monster curr;
+        int i;
+        for( i = 0; i <monsters.size(); i++){
+            curr = monsters.get(i);
+            playingboard.remove_piece(curr.row,curr.col);
+           
+        }
+        monsters.clear();
+
+      for(i =0;i< heroes.size();i++){
+            curr= heroes.get(i);
+            playingboard.remove_piece(curr.row,curr.col);
+
+      }
+      heroes.clear();
+      playingboard.intialize_board();
+
+    }
 
 	public static void play(){
         // previously "actual_game"
@@ -1060,8 +1087,8 @@ public static void usePotion1(Character currentchar){
                 playingboard.printBoard();
                 
             }
-            if (counter % 9==0) {
-                // spawn new monsters
+            if (counter % 6==0) {
+                // spawn new monsters after 5 roundds
                 ArrayList<Monster> newMonsters = possiblemoster.matchLevel(currentplayer.returnmaxlevel(), num_hero);
                 monsters.addAll(newMonsters);
                 respawnMonsters(newMonsters);
@@ -1070,6 +1097,26 @@ public static void usePotion1(Character currentchar){
             possiblehero.recover(heroes);
             counter++;
         }
+        //ask player if they want to play again
+        System.out.println("Would you like to play another game? (y/n):");
+                String yesno;
+                yesno = scannername.nextLine();
+                yesno=yesno.toLowerCase();
+                while(yesno.equals("y")==false&& yesno.equals("n")==false){
+                    System.out.println("Invalid input! Enter (y/n):");
+                    yesno = scannername.nextLine();
+                    yesno=yesno.toLowerCase();
+                }
+                if(yesno.equals("y")){
+                   resetboard();
+                   setup();
+                    }
+                else if (yesno.equals("n")){
+                    System.out.println("Thanks for playing");
+                    System.exit(0);
+                }
+            
+        
     }
 
 
