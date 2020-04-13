@@ -377,11 +377,12 @@ class NexusBoard extends Board {
 	    
 	    Tile current= board[row][col];
 
-	    if(current.get_characterpiece().equals("  ")==false){
+	    if(current.get_characterpiece().equals("  ")==false|| current.getDisplaytile()=='X'){
 	        
 	      
 	        return "X";
-	    }
+		}
+	
 	    else{
 	    Tile previous = board[curr.row][curr.col];
 	    previous.reset_characterpiece();

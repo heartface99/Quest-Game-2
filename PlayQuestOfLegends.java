@@ -1087,8 +1087,8 @@ public static void usePotion1(Character currentchar){
                 playingboard.printBoard();
                 
             }
-            if (counter % 6==0) {
-                // spawn new monsters after 5 roundds
+            if (counter % 9==0) {
+                // spawn new monsters after 8 roundds
                 ArrayList<Monster> newMonsters = possiblemoster.matchLevel(currentplayer.returnmaxlevel(), num_hero);
                 monsters.addAll(newMonsters);
                 respawnMonsters(newMonsters);
