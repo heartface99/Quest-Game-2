@@ -49,6 +49,11 @@ public class Player{
     public void add_hero(Character char1){
         this.player_heroes.add(char1);
     }
+    //reset the player list of character
+    public void reset_list(){
+        player_heroes.clear();
+    }
+
     //return the max hero level
     public int returnmaxlevel(){
         int maxlevel=0;

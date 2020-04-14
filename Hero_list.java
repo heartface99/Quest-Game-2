@@ -1,9 +1,13 @@
  import java.util.*; 
 
+    
+
+
  public class Hero_list {
     /*
         This class initializes all the different types of characters that the player can choose from
     */
+
 
     private ArrayList<Character> herolist;
 
@@ -51,7 +55,8 @@
         herolist.add(Segojan_Earthcaller);
         herolist.add(Aues_Sorrowin);
     }
-
+    
+//functions to pad the strings when we print them
     public String pad (String input,int num_extended){
         int counter;
         while(input.length()<num_extended){
@@ -61,7 +66,7 @@
         }
         return input;
     }
-    
+    //print the list of all possible heros
     public void printlist(){
         Character current;
         String name;
@@ -111,7 +116,7 @@
             current.gainMana((int)(current.getTotalMana()*0.05));
         }
     }
-
+    //separate characters with no hp and from characters still alive
     public ArrayList<Character> removenohp(ArrayList<Character> list, ArrayList<Character> deadcharacters){
         for(int i=0;i<list.size();i++){
            
@@ -123,7 +128,7 @@
         }
         return list;
     }
-
+//resets the state of the hero after a battle is done
     public void reset(ArrayList<Character> list){
         // revive the list of characters 
         for(int i=0;i<list.size();i++){
