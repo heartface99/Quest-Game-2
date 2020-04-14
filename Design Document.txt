@@ -1,1 +1,58 @@
-DESIGN DOC~
+Design Document
+Date: 4/13/2020
+
+Min Jia Liu
+BU ID: U54689134
+
+Eunice Choi
+BU ID: U75265203
+
+TheQuest- This class is exactly the same as in the previous implementation of TheQuest. We left this to be the same because it is the driver class and we wanted it to be as clean and simple as possible. 
+
+Play: This class is exactly the same as in the previous implementation of Play with the difference that we modified the introduction setup so that it checks whether the user would like to play the original quest or quest of legends. From an OOD perspective, we thought it would make sense for the user to still have the ability to play the original quest if they wanted and wanted to build upon existing code, without destroying any existing functionality.
+	
+	Subclasses of Play include:
+		PlayQuestOfLegends- This is a completely new class that inherits the Play class. It contains functions like teleport that the original Play doesn't have. From an OOD perspective, we thought it would make sense for the user to still have the ability to play the original quest if they wanted and wanted to build upon existing code, without destroying any existing functionality. 
+
+
+Board: This class was left to be the same. The reason being is that we created another subclass for the Quest of Legend's board, this would provide more flexibility so that in the future we could build on both games if desired. 
+
+	Subclasses of Board include:
+		NexusBoard- This is a completely new class that inherits the Board class. It has new functions that will print the board for quest of legends also contains different logic that determines whether the user can make a move on the board. Still, it inherits attributes such as the market and the dimensions. We decided to create a new class NexusBoard because when we decided to keep the original quest, we needed to separate the logic of the quest of legends with the original quest game. 
+
+Item- This class was left the same except that it uses an interface, SellableBuyable. We decided to do this because from an OOD perspective, this would ensure that the item is indeed sellable and buyable and allows for a level of abstraction.  
+
+	Subclasses of Item that holds attribute that related to each of them 
+		Weapon- Stayed exactly the same. We kept it same because it upheld the original object oriented design that we had with the weapon inheriting from the item, and now it has the interface to ensure that it is sellable and buyable.
+		Armor- Stayed exactly the same. We kept it same because it upheld the original object oriented design where there is a first level of inheritance that holds all hero items, and now it has the interface to ensure that it is sellable and buyable.
+		Potion- Stayed exactly the same. We kept it same because it upheld the original object oriented design where there is a first level of inheritance holds all hero items, and now it has the interface to ensure that it is sellable and buyable.
+		Spell- Stayed exactly the same. We kept it same because it upheld the original object oriented design where there is a first level of inheritance that holds all hero items, and now it has the interface to ensure that it is sellable and buyable.
+
+Character_Monster: This class is exactly the same as in the previous implementation of Character_Monster with the difference that we added a few attributes like pieceName, row, and col. pieceName was needed because it holds the display string of the hero on the board, row/col was necessary because now we need to keep track of where all the heroes are. The reason why we made the class like this is because the original design of the Character_Monster had followed OOD principles as it is the first level of interitance for all living creatures in the game.
+
+	Subclass of Character_Monster:
+		Monster: Monster was kept the same expect that it had implemented the interface MonsterFightingAbility. We decided to use an interface as it follows OOD because using one ensures that the monster has the ability to fight and allows for abstraction.
+
+		Character: This class was kept the same expect that it had implemented the interface HeroFightingAbility. We decided to use an interface as it follows OOD because using one ensures that the hero has the ability to fight and allows for abstraction.
+
+			Subclass of Character: Warrior, Sorcerer, Paladin. All of which stayed exactly the same. We didn't feel a need to change these as it had already been following OOD with all these types of heroes inheriting from the Character class, which represents all common elements of the hero in the game.
+
+
+MainMarket: This class stayed the same. There wasn't a need to extend this more for this assignment as  it simply initializes all items in the market.
+
+Monsterlist: This class stayed the same except for the matchLevel() function. The reason for this is because when we spawn new monsters every x rounds, we needed to create separate objects for every monster, even if they have the same information or it would cause problems (this was the case if after x rounds the hero was in the same level so the monsters being chosen were also the same). Beyond this, there wasn't a reason to extend this class further as it already satisfies the requirements of initalizing the monsters. 
+
+Hero_list: This class the same except for the addition of the function win_single(). This was because in the new quest of legends game, there are 3 heroes, so we needed a function that would check to see if one of the heroes had won. Besides this, we did not extend this further as it had already satisfies the requirements of initalizing the heroes. 
+
+Player: This class is the same as the previous implementation of Player except for the addition of the function setHero_piece(), which sets the hero piece of each hero, in order in which they have been added and sets their col and row so they spawn at nexus. We kept this class more the same as the previous implementation as the player itself had not changed drastically with the addition of the new quest of legends game.  
+
+Tile: This class is the same as the previous implementation of Tile, with the difference that it has a new attribute characterhere as well as new functions such as return_character and others to support there being this new attribute. We kept tile like this as it kept to the OO design with the tile being a part of a Board, which will in turn contain characters and monsters and played by a player. 
+
+
+Interfaces
+
+	SellableBuyable: This is a completely new interface. We created this new interface for the level of abstraction that ensures these items are sellable and buyable.
+
+	HeroFightAbility: This is a completely new interface. We created this new interface for the level of abstraction that ensures that the heros to have some fight-specific methods.
+
+	MonsterFightAbility: This is a completely new interface. We created this new interface for the level of abstraction that ensures that the monsters to have some fight-specific methods.

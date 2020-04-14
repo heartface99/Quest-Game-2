@@ -18,7 +18,7 @@
         return herolist;
     }
     
-    // initalizing all the different
+    // initalizing all the different heroes
     public void initalize_paladin(){
         Paladin Solonor_Thelandira= new Paladin("Solonor_Thelandira",300,750,650,700,2500,7);
         Paladin Sehanine_Moonbow = new Paladin("Sehanine_Moonbow",300,750,700,700,2500,7);
